@@ -1,7 +1,18 @@
-import { Flex, Box, Stack, Heading, Text, Button } from "@chakra-ui/react";
+import { Flex, Box, Stack, Heading, Text, Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { useState } from "react";
 import Logo from "@/components/Logo";
 
 const Landing: React.FC = () => {
+    const [email, setEmail] = useState("");
+
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
+    };
+
+    const handleSubmit = () => {
+        console.log("Email submitted:", email);
+    };
+
     return (
         <Flex direction="column" px={{ base: "4", md: "8" }} height="100vh" width={"100vw"} backgroundColor={"black"}>
             {/* Video Background */}
@@ -18,7 +29,7 @@ const Landing: React.FC = () => {
                 width="100%"
                 height="100%"
                 objectFit="cover"
-                zIndex={1} // Ensure the video is behind everything
+                zIndex={1}
             />
 
             {/* Overlay */}
@@ -28,9 +39,9 @@ const Landing: React.FC = () => {
                 left="0"
                 width="100%"
                 height="100%"
-                bg="rgba(0, 0, 0, 0.7)" // Semi-transparent black overlay
+                bg="rgba(0, 0, 0, 0.7)"
                 blur={"40px"}
-                zIndex={2} // Ensure the overlay is above the video but below the content
+                zIndex={2}
             />
 
             <Flex align="center" justify="center" h="24" mt={3} ml={-2} zIndex={3}>
@@ -60,23 +71,35 @@ const Landing: React.FC = () => {
                         Feed the world.
                     </Heading>
 
-                    {/* Order Now Button */}
-                    <Button
-                        variant="secondary"
-                        color={"white"}
-                        borderWidth={0}
-                        borderRadius={"full"}
-                        px={16}
-                        py={6}
-                        backgroundColor="#cd4630"
-                        size="lg"
-                        mt={4}
-                        width="auto" // Ensures the button width is just enough for its content
-                        _hover={{ backgroundColor: "#a73d29" }} // Slightly darker shade on hover
-                        _active={{ backgroundColor: "#8e2e24" }} // Even darker on active
-                    >
-                        Order Now
-                    </Button>
+                    {/* Email Input with Button inside */}
+                    <InputGroup size="lg" width="auto" maxW="400px" height="50px"> 
+                        <Input
+                            placeholder="Email address"
+                            value={email}
+                            onChange={handleEmailChange}
+                            borderRadius="full"
+                            backgroundColor="white"
+                            _focus={{ borderColor: "#cd4630" }}
+                            _hover={{ borderColor: "#cd4630" }}
+                            pr="120px" 
+                            height="100%" 
+                        />
+                        <InputRightElement width="auto" display="flex" justifyContent="center" alignItems="center" height="100%">
+                            <Button
+                                variant="secondary"
+                                color={"white"}
+                                borderWidth={0}
+                                borderRadius="full"
+                                size="lg"
+                                backgroundColor="#cd4630"
+                                _hover={{ backgroundColor: "#a73d29" }}
+                                _active={{ backgroundColor: "#8e2e24" }}
+                                onClick={handleSubmit}
+                            >
+                                Order Now
+                            </Button>
+                        </InputRightElement>
+                    </InputGroup>
                 </Stack>
             </Flex>
 
