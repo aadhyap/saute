@@ -1,24 +1,49 @@
-import { Flex, Box, Stack, Heading, Text, Button, Input, VStack, Select } from "@chakra-ui/react";
+import { Flex, Box, Stack, Heading, Text, Button, Input, VStack, Select, CheckboxGroup, Checkbox } from "@chakra-ui/react";
 import { useState } from "react";
 import Logo from "@/components/Logo";
 
 const Landing: React.FC = () => {
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [feedingPeople, setFeedingPeople] = useState("");
     const [activeCard, setActiveCard] = useState<"order" | "chef" | null>(null);
-    const [favoriteCuisine, setFavoriteCuisine] = useState("");
+    const [selectedCuisines, setSelectedCuisines] = useState<string[]>([]);
+    const [otherCuisine, setOtherCuisine] = useState("");
     const [chefCuisine, setChefCuisine] = useState("");
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     };
 
+    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setName(event.target.value);
+    };
+
+    const handleFeedingPeopleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFeedingPeople(event.target.value);
+    };
+
+    const handleCuisineChange = (cuisines: string[]) => {
+        setSelectedCuisines(cuisines);
+    };
+
+    const handleOtherCuisineChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setOtherCuisine(event.target.value);
+    };
+
     const handleOrderNowSubmit = () => {
-        console.log("Order Now submitted:", { email, favoriteCuisine });
+        console.log("Order Now submitted:", {
+            name,
+            email,
+            selectedCuisines,
+            otherCuisine: selectedCuisines.includes("Other") ? otherCuisine : null,
+            feedingPeople,
+        });
         setActiveCard(null);
     };
 
     const handleBecomeChefSubmit = () => {
-        console.log("Become a Chef submitted:", { email, chefCuisine });
+        console.log("Become a Chef submitted:", { name, email, chefCuisine });
         setActiveCard(null);
     };
 
@@ -27,7 +52,7 @@ const Landing: React.FC = () => {
             {/* Video Background */}
             <Box
                 as="video"
-                src="/vids/testbk2.mp4" // Path to your video file
+                src="/vids/testbk2.mp4"
                 autoPlay
                 loop
                 muted
@@ -59,23 +84,11 @@ const Landing: React.FC = () => {
             {/* Hero Section */}
             <Flex flex="1" align="center" direction="column" justify="center" zIndex={3}>
                 <Stack spacing="5" px={{ sm: 8, md: 0 }} width="100%" align="center">
-                    <Text
-                        fontSize={"lg"}
-                        textStyle="md"
-                        maxW="md"
-                        fontWeight={600}
-                        color={"white"}
-                        textAlign="center"
-                    >
+                    <Text fontSize={"lg"} textStyle="md" maxW="md" fontWeight={600} color={"white"} textAlign="center">
                         Saute
                     </Text>
 
-                    <Heading
-                        size={"lg"}
-                        color={"white"}
-                        width={"80%"}
-                        textAlign="center"
-                    >
+                    <Heading size={"lg"} color={"white"} width={"80%"} textAlign="center">
                         Feed the world.
                     </Heading>
 
@@ -153,38 +166,93 @@ const Landing: React.FC = () => {
                             {activeCard === "order" ? "Order Now" : "Become a Chef"}
                         </Heading>
 
+                        <Input
+                            placeholder="Your Name"
+                            value={name}
+                            onChange={handleNameChange}
+                            mb={4}
+                            backgroundColor="gray.100"
+                            _focus={{ borderColor: "#cd4630" }}
+                        />
+
                         <Text mb={4}>
                             Your Email: <b>{email}</b>
                         </Text>
 
                         {activeCard === "order" ? (
                             <>
-                                <Select
-                                    placeholder="Favorite Cuisine"
-                                    value={favoriteCuisine}
-                                    onChange={(e) => setFavoriteCuisine(e.target.value)}
-                                    mb={4}
+                                <Text mb={2} fontWeight="bold">
+                                    Select Your Favorite Cuisines (Choose multiple):
+                                </Text>
+                                <CheckboxGroup
+                                    value={selectedCuisines}
+                                    onChange={(cuisines) => handleCuisineChange(cuisines as string[])}
                                 >
-                                    <option value="Italian">Italian</option>
-                                    <option value="Mexican">Mexican</option>
-                                    <option value="Indian">Indian</option>
-                                </Select>
+                                    <VStack align="start" spacing={2} mb={4}>
+                                        <Checkbox value="Italian">Italian</Checkbox>
+                                        <Checkbox value="Mexican">Mexican</Checkbox>
+                                        <Checkbox value="Indian">Indian</Checkbox>
+                                        <Checkbox value="No Preference">No Preference</Checkbox>
+                                        <Checkbox value="Health-Conscious">Health-Conscious</Checkbox>
+                                        <Checkbox value="Other">Other</Checkbox>
+                                    </VStack>
+                                </CheckboxGroup>
+
+                                {selectedCuisines.includes("Other") && (
+                                    <Input
+                                        placeholder="Please specify other cuisine"
+                                        value={otherCuisine}
+                                        onChange={handleOtherCuisineChange}
+                                        mb={4}
+                                        backgroundColor="gray.100"
+                                        _focus={{ borderColor: "#cd4630" }}
+                                    />
+                                )}
+
+                                <Input
+                                    placeholder="How many people are you feeding?"
+                                    value={feedingPeople}
+                                    onChange={handleFeedingPeopleChange}
+                                    mb={4}
+                                    backgroundColor="gray.100"
+                                    _focus={{ borderColor: "#cd4630" }}
+                                />
+
                                 <Button colorScheme="red" onClick={handleOrderNowSubmit}>
                                     Submit Order
                                 </Button>
                             </>
                         ) : (
                             <>
-                                <Select
-                                    placeholder="Cuisine You Cook"
-                                    value={chefCuisine}
-                                    onChange={(e) => setChefCuisine(e.target.value)}
-                                    mb={4}
+                                
+                                <Text mb={2} fontWeight="bold">
+                                Cuisine You Cook (Choose multiple):
+                                </Text>
+                                <CheckboxGroup
+                                    value={selectedCuisines}
+                                    onChange={(cuisines) => handleCuisineChange(cuisines as string[])}
                                 >
-                                    <option value="Italian">Italian</option>
-                                    <option value="Mexican">Mexican</option>
-                                    <option value="Indian">Indian</option>
-                                </Select>
+                                    <VStack align="start" spacing={2} mb={4}>
+                                        <Checkbox value="Italian">Italian</Checkbox>
+                                        <Checkbox value="Mexican">Mexican</Checkbox>
+                                        <Checkbox value="Indian">Indian</Checkbox>
+                                        <Checkbox value="No Preference">No Preference</Checkbox>
+                                        <Checkbox value="Health-Conscious">Health-Conscious</Checkbox>
+                                        <Checkbox value="Other">Other</Checkbox>
+                                    </VStack>
+                                </CheckboxGroup>
+
+                                {selectedCuisines.includes("Other") && (
+                                    <Input
+                                        placeholder="Please specify other cuisine"
+                                        value={otherCuisine}
+                                        onChange={handleOtherCuisineChange}
+                                        mb={4}
+                                        backgroundColor="gray.100"
+                                        _focus={{ borderColor: "#cd4630" }}
+                                    />
+                                )}
+
                                 <Button colorScheme="teal" onClick={handleBecomeChefSubmit}>
                                     Submit
                                 </Button>
