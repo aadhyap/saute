@@ -1,4 +1,4 @@
-import { Flex, Box, Stack, Heading, Text } from "@chakra-ui/react";
+import { Flex, Box, Stack, Heading, Text, Button } from "@chakra-ui/react";
 import Logo from "@/components/Logo";
 
 const Landing: React.FC = () => {
@@ -36,7 +36,7 @@ const Landing: React.FC = () => {
             <Flex align="center" h="24" mt={3} ml={-2} zIndex={3}>
                 <Logo width="200" height="45" isDark={true} />
             </Flex>
-            <Flex flex="1" align="center" zIndex={3}>
+            <Flex flex="1" align="center" direction="column" justify="center" zIndex={3}>
                 <Stack spacing="5" px={{ sm: 8, md: 0 }} width={"100%"}>
                     <Stack>
                         <Text
@@ -56,11 +56,22 @@ const Landing: React.FC = () => {
                         >
                             Feed the world.
                         </Heading>
+
+                        {/* Order Now Button */}
+                        <Button variant="secondary" color={"white"} borderWidth={0} borderRadius={"full"} px={16} py={6}
+                            backgroundColor="#cd4630" 
+                            width={"20%"}
+                            size="lg"
+                            mt={4}
+                            _hover={{ backgroundColor: "#a73d29" }} // Slightly darker shade on hover
+                            _active={{ backgroundColor: "#8e2e24" }} // Even darker on active
+                        >
+                            Order Now
+                        </Button>
                     </Stack>
-
-
                 </Stack>
             </Flex>
+
             <Flex align="center" h="24" zIndex={3}>
                 <Text color="white" textStyle="sm">
                     © {new Date().getFullYear()} Saute. All rights reserved.
