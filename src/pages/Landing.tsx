@@ -77,7 +77,7 @@ const Landing: React.FC = () => {
                 zIndex={2}
             />
 
-            <Flex align="center" justify="center" h="24" mt={3} ml={-2} zIndex={3}>
+            <Flex position="absolute" top="10px" left="10px" zIndex={3}>
                 <Logo width="200" height="45" isDark={true} />
             </Flex>
 
