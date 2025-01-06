@@ -1,6 +1,8 @@
+// fire/queries/users
+
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import firebase_app from "@/fire/config";
-import AppUser from "utils/types";
+import AppUser from "@/utils/types";
 
 const db = getFirestore(firebase_app);
 

@@ -2,6 +2,7 @@ import { Flex, Menu, MenuButton, Avatar, MenuList, MenuItem } from "@chakra-ui/r
 
 import { useAuth } from "@/providers/AuthProvider";
 import { FiLogOut } from "react-icons/fi";
+import Logo from "./Logo";
 
 const Appbar = () => {
     const { user, logOut } = useAuth();
@@ -29,7 +30,9 @@ const Appbar = () => {
             mt={1}
             alignItems="center"
         >
-            <Flex></Flex>
+            <Flex alignItems={"center"} justifyContent={"center"}>
+                <Logo width="130" height="35" isDark={true} />
+            </Flex>
             <Flex gap={4}>
                 {user ? (
                     <Menu>
@@ -42,14 +45,15 @@ const Appbar = () => {
                                 referrerPolicy="no-referrer"
                             />
                         </MenuButton>
-                        <MenuList display={"flex"} flexDirection={"column"} gap={2} py={3}>
+                        <MenuList borderColor={"whiteAlpha.300"} borderRadius={"lg"} backgroundColor={"blackAlpha.300"} display={"flex"} flexDirection={"column"} gap={2} py={3}>
 
                             <MenuItem
                                 fontSize={"sm"}
                                 onClick={() => handleSignOut()}
                                 fontWeight={500}
-                                color={"teal.800"}
+                                color={"white"}
                                 px={5}
+                                backgroundColor={"transparent"}
                             >
                                 <FiLogOut style={{ fontSize: "1.1em", marginRight: "0.8em" }} />
                                 Logout

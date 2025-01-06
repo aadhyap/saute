@@ -1,64 +1,219 @@
 // pages/Admin.jsx 
-import { useState } from "react";
-import { Button, Container, createIcon, Flex, Text, Heading, HStack, Stack, useToast } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-
+import {
+    Box, Button, Container, Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, FormControl, FormLabel, Heading, Input, Select, Spinner, Stack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, Textarea, useDisclosure, useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter,
+    ModalCloseButton,
+    Badge,
+    Divider,
+    Alert,
+    AlertDescription,
+    AlertIcon,
+    AlertTitle,
+} from "@chakra-ui/react";
 import Appbar from "@/components/Appbar";
 import { useAuth } from "@/providers/AuthProvider";
 
-import Logo from "@/components/Logo";
-
-export const GoogleIcon = createIcon({
-    displayName: 'GoogleIcon',
-    path: (
-        <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
-            <path
-                fill="#4285F4"
-                d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"
-            />
-            <path
-                fill="#34A853"
-                d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"
-            />
-            <path
-                fill="#FBBC05"
-                d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z"
-            />
-            <path
-                fill="#EA4335"
-                d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z"
-            />
-        </g>
-    ),
-})
-
+import AdminLogin from "./AdminLogin";
+import { useEffect, useState } from "react";
+import { Order } from "@/utils/types";
+import { createOrder, getAllOrders, deleteOrder, updateOrder } from "@/fire/queries/orders";
+import DynamicTable from "@/components/DynamicTable";
+import { FiPlus } from "react-icons/fi";
 
 const Admin = () => {
     const { user, isUserLoading } = useAuth();
-
-    const { googleSignIn } = useAuth();
-    const [_, setIsLoading] = useState(false);
-
     const toast = useToast();
 
-    const handleSignIn = async () => {
+    // State for orders
+    const [orders, setOrders] = useState<Order[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+    // Handle create order form submission
+    const [newOrder, setNewOrder] = useState<Omit<Order, 'id' | 'createdAt' | 'updatedAt'>>({
+        orderId: crypto.randomUUID(),
+        userId: '',
+        address: '',
+        flavors: [],
+        quantity: 1,
+        timeSlot: '',
+        status: 'pending',
+    });
+
+    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
+    const [updatedStatus, setUpdatedStatus] = useState<string>('');
+
+    // Drawer for creating a new order
+    const {
+        isOpen: isCreateDrawerOpen,
+        onOpen: onCreateDrawerOpen,
+        onClose: onCreateDrawerClose,
+    } = useDisclosure();
+
+    // Modal for viewing order details
+    const {
+        isOpen: isViewModalOpen,
+        onOpen: onViewModalOpen,
+        onClose: onViewModalClose,
+    } = useDisclosure();
+
+
+    useEffect(() => {
+        if (selectedOrder) {
+            setUpdatedStatus(selectedOrder.status);
+        }
+    }, [selectedOrder]);
+
+    // Fetch orders in real-time
+    useEffect(() => {
+        if (user) {
+            fetchAllOrders()
+
+            setNewOrder((prev) => ({
+                ...prev,
+                ["userId"]: user.uid,
+            }));
+        }
+    }, [user]);
+
+    const fetchAllOrders = async () => {
+        setIsLoading(true);
+        const getOrders = await getAllOrders();
+        setOrders(getOrders);
+        setIsLoading(false);
+        console.log("all orders", getOrders);
+    };
+
+
+
+    const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setUpdatedStatus(e.target.value);
+    };
+
+    const handleUpdateStatus = async () => {
+        if (selectedOrder) {
+            try {
+                // @ts-ignore
+                await updateOrder(selectedOrder.id, { status: updatedStatus });
+                toast({
+                    title: "Status Updated",
+                    description: `Order status updated to ${updatedStatus}.`,
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                });
+                onViewModalClose();
+            } catch (error: any) {
+                toast({
+                    title: "Error",
+                    description: error.message || "Failed to update status.",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            } finally {
+                fetchAllOrders();
+
+            }
+        }
+    };
+
+    const handleDeleteOrder = async () => {
+        if (selectedOrder) {
+            const confirm = window.confirm("Are you sure you want to delete this order?");
+            if (confirm) {
+                try {
+                    await deleteOrder(selectedOrder.id);
+                    toast({
+                        title: "Order Deleted",
+                        description: "The order has been successfully deleted.",
+                        status: "success",
+                        duration: 5000,
+                        isClosable: true,
+                    });
+                    onViewModalClose();
+                } catch (error: any) {
+                    toast({
+                        title: "Error",
+                        description: error.message || "Failed to delete order.",
+                        status: "error",
+                        duration: 5000,
+                        isClosable: true,
+                    });
+                } finally {
+                    fetchAllOrders();
+
+                }
+            }
+        }
+    };
+
+    // Handle row click to view order details
+    const handleRowClick = (order: Order) => {
+        setSelectedOrder(order);
+        onViewModalOpen();
+    };
+
+    const handleCreateOrderChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setNewOrder((prev) => ({
+            ...prev,
+            [name]: name === "flavors" ? value.split(",").map(f => f.trim()) : value,
+        }));
+    };
+
+    const handleCreateOrderSubmit = async () => {
+        setIsSubmitting(true);
+
         try {
-            setIsLoading(true); // Start loading state
-            await googleSignIn();
-        } catch (error: any) {
-            console.error("Sign-in error:", error);
+            await createOrder(newOrder);
             toast({
-                title: "Sign In Failed",
-                description: error.message || "An error occurred. Please try again.",
+                title: "Order Created",
+                description: "The new order has been successfully created.",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            });
+            onCreateDrawerClose();
+            setNewOrder({
+                orderId: '',
+                userId: '',
+                address: '',
+                flavors: [],
+                quantity: 1,
+                timeSlot: '',
+                status: 'pending',
+            });
+        } catch (error: any) {
+            toast({
+                title: "Error",
+                description: error.message || "Failed to create order.",
                 status: "error",
                 duration: 5000,
                 isClosable: true,
             });
         } finally {
-            setIsLoading(false); // Reset loading state
+            setIsSubmitting(false);
+            fetchAllOrders();
         }
     };
 
+    // Columns for DynamicTable
+    const orderColumns = [
+        "orderId",
+        "status",
+        "address",
+        "flavors",
+        "quantity",
+        "timeSlot",
+        "userId",
+    ];
+
+    // Renderers for specific columns
+    const renderers = {
+        flavors: (value: string[], _: Order) => <Text>{value.join(", ")}</Text>,
+        status: (value: string, _: Order) => <Badge borderRadius={"full"} colorScheme="whiteAlpha" textTransform="capitalize">{value.replace("-", " ")}</Badge>,
+    };
 
 
     // Instead of returning an empty string, return null when loading
@@ -67,60 +222,317 @@ const Admin = () => {
     }
 
     if (!user) {
-        return <Flex justifyContent={"center"} alignItems={"center"} width={"100vw"} height={"100vh"}>
-            <Container maxW="md" py={{ base: '12', md: '24' }}>
-                <Stack spacing="8">
-                    <Stack spacing="6">
-                        <Flex width={"100%"} alignItems={"center"} justifyContent={"center"}>
-                            <Logo width="200" height="45" isDark={false} />
-                        </Flex>
-                        <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
-                            <Heading size={{ base: 'xs', md: 'sm' }}>Log in to your admin account</Heading>
-                            <Text color="fg.muted">Feeding the world one meal at a time.</Text>
-                        </Stack>
-                    </Stack>
-                    <Stack spacing="6">
-
-                        <Stack spacing="3">
-                            <Button variant="secondary" leftIcon={<GoogleIcon />} onClick={() => handleSignIn()}>
-                                Continue with Google
-                            </Button>
-
-
-
-                        </Stack>
-                    </Stack>
-                    <HStack spacing="1" justify="center">
-                        <Text textStyle="sm" color="fg.muted">
-                            Having issues? <Link to="#">Contact us</Link>
-                        </Text>
-                    </HStack>
-                </Stack>
-            </Container>
-        </Flex>;
+        return <AdminLogin />;
     }
 
     return (
         <Flex
             position="relative"
-            flexDirection={"row"}
-            width={"100%"}
-            height={"100vh"}
+            flexDirection={"column"}
+            width={"100vw"}
+            height={"100%"}
+            minHeight={"100vh"}
+            backgroundColor={"#121212"}
+
         >
-            <Flex
-                bgGradient={"linear(to-b, #F0F0F0, #FAFAFA, #FFFFFF)"}
-                position="relative"
-                flexDirection={"column"}
-                flexGrow={1}
-                minWidth={0}
-            >
-                <Appbar />
-                <Flex flexDirection={"column"} width={"100%"} overflowY={"auto"}>
-                    <Container maxW="container.xl">
-                        Coming Soon
-                    </Container>
-                </Flex>
+            <Appbar />
+            <Flex flexDirection={"column"} width={"100%"} overflowY={"auto"} backgroundColor={"#1c1c1c"} flex={1} borderTopRadius={"3em"} py={8}>
+                <Container maxW="container.xl">
+                    <Tabs variant='unstyled' colorScheme="whiteAlpha" >
+                        <TabList>
+                            <Tab color={"whiteAlpha.400"} _selected={{ color: 'white' }}>Orders</Tab>
+                            <Tab isDisabled={true} color={"whiteAlpha.400"} _selected={{ color: 'white' }}>Summary</Tab>
+                        </TabList>
+                        <TabIndicator mt='-1.5px' height='2px' bg='red.500' borderRadius='1px' />
+
+                        <TabPanels>
+                            {/* Orders Tab */}
+                            <TabPanel>
+                                <Flex justifyContent="space-between" alignItems="center" mb={4}>
+                                    <Heading size="md" color="white">Orders</Heading>
+                                    <Button leftIcon={<FiPlus />} fontSize={"xs"} variant={"ghost"} backgroundColor={"whiteAlpha.50"} color={"white"} borderRadius={"full"} size={"sm"} colorScheme="whiteAlpha" onClick={() => onCreateDrawerOpen()}>
+                                        Create Order
+                                    </Button>
+                                </Flex>
+
+                                {isLoading ? (
+                                    <Flex justifyContent="center" alignItems="center" height="200px">
+                                        <Spinner size="xl" color="teal.500" />
+                                    </Flex>
+                                ) : user && user.roles?.includes("admin") ? (
+                                    <Flex backgroundColor={"blackAlpha.50"} borderRadius={"lg"} shadow={"lg"}>
+                                        <DynamicTable
+                                            data={orders}
+                                            pageSize={10}
+                                            renderers={renderers}
+                                            onRowClick={handleRowClick}
+                                            columns={orderColumns}
+                                        />
+                                    </Flex>
+                                ) : user && !user.roles?.includes("admin") ? (
+                                    <Alert status='error' borderRadius={"md"} backgroundColor={"whiteAlpha.100"} color={"white"}>
+                                        <AlertIcon />
+                                        <AlertTitle>You don't have permission!</AlertTitle>
+                                        <AlertDescription>Please contact an admin to update your permissions.</AlertDescription>
+                                    </Alert>
+                                ) : ""}
+                            </TabPanel>
+
+                            {/* Create Order Tab */}
+                            <TabPanel>
+                                <Button leftIcon={<FiPlus />} colorScheme="teal" onClick={() => onCreateDrawerOpen()}>
+                                    Create New Order
+                                </Button>
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
+                </Container>
             </Flex>
+
+
+            {/* Modal for Viewing and Managing Order Details */}
+            <Modal isOpen={isViewModalOpen} onClose={onViewModalClose} size="lg">
+                <ModalOverlay />
+                <ModalContent backgroundColor={"#1a1a1a"}>
+                    <ModalHeader fontSize={"3xl"} color={"white"}>Order Details</ModalHeader>
+                    <ModalCloseButton style={{ color: "white", backgroundColor: "transparent" }} />
+                    <ModalBody color={"white"} pb={10}>
+                        {selectedOrder ? (
+                            <Stack spacing={4}>
+                                <Box>
+                                    <Text fontWeight="bold">Order ID:</Text>
+                                    <Text>{selectedOrder.orderId}</Text>
+                                </Box>
+                                <Box>
+                                    <Text fontWeight="bold">User ID:</Text>
+                                    <Text>{selectedOrder.userId}</Text>
+                                </Box>
+                                <Box>
+                                    <Text fontWeight="bold">Address:</Text>
+                                    <Text>{selectedOrder.address}</Text>
+                                </Box>
+                                <Box>
+                                    <Text fontWeight="bold">Flavors:</Text>
+                                    <Text>{selectedOrder.flavors.join(", ")}</Text>
+                                </Box>
+                                <Box>
+                                    <Text fontWeight="bold">Quantity:</Text>
+                                    <Text>{selectedOrder.quantity}</Text>
+                                </Box>
+                                <Box>
+                                    <Text fontWeight="bold">Time Slot:</Text>
+                                    <Text>{selectedOrder.timeSlot}</Text>
+                                </Box>
+                                <Box>
+                                    <Text fontWeight="bold">Status:</Text>
+                                    <Badge borderRadius={"full"} colorScheme="whiteAlpha" textTransform="capitalize">
+                                        {selectedOrder.status.replace("-", " ")}
+                                    </Badge>
+                                </Box>
+                                <Divider mt={5} borderColor={"whiteAlpha.200"} />
+
+                                {/* Update Status */}
+                                <FormControl id="updateStatus" mt={4}>
+                                    <FormLabel color={"white"}>Update Status</FormLabel>
+                                    <Select
+                                        value={updatedStatus}
+                                        onChange={handleStatusChange}
+                                        backgroundColor={"whiteAlpha.50"}
+                                        color={"white"}
+                                        borderColor={"whiteAlpha.100"}
+                                        _hover={{ borderColor: "whiteAlpha.300" }}
+                                    >
+                                        <option value="pending">Pending</option>
+                                        <option value="preparing">Preparing</option>
+                                        <option value="out-for-delivery">Out for Delivery</option>
+                                        <option value="delivered">Delivered</option>
+                                        <option value="canceled">Canceled</option>
+                                    </Select>
+                                </FormControl>
+                            </Stack>
+                        ) : (
+                            <Text>No order selected.</Text>
+                        )}
+                    </ModalBody>
+                    <ModalFooter justifyContent="space-between">
+                        <Button size={"sm"} colorScheme="red" variant={"outline"} onClick={handleDeleteOrder}>
+                            Delete Order
+                        </Button>
+                        <Box>
+                            <Button size={"sm"} variant="ghost" colorScheme="whiteAlpha" mr={3} onClick={onViewModalClose}>
+                                Cancel
+                            </Button>
+                            <Button size={"sm"} colorScheme="blackAlpha" onClick={handleUpdateStatus}>
+                                Update Status
+                            </Button>
+                        </Box>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+
+
+
+            {/* Drawer for Creating a New Order */}
+            <Drawer isOpen={isCreateDrawerOpen} placement="right" onClose={onCreateDrawerClose} size="md">
+                <DrawerOverlay />
+                <DrawerContent backgroundColor={"#1a1a1a"}>
+                    <DrawerHeader fontSize={"3xl"} color={"white"}>Create New Order</DrawerHeader>
+                    <DrawerBody>
+                        <Stack spacing={4}>
+                            <FormControl id="orderId" isRequired>
+                                <FormLabel color={"white"}>Order ID</FormLabel>
+                                <Input
+                                    name="orderId"
+                                    value={newOrder.orderId}
+                                    isDisabled={true}
+                                    onChange={handleCreateOrderChange}
+                                    placeholder="Enter Order ID"
+                                    style={{
+                                        opacity: 0.2,
+                                    }}
+                                    backgroundColor={"whiteAlpha.50"}
+                                    color={"white"}
+                                    borderColor={"whiteAlpha.100"}
+                                    _hover={{
+                                        borderColor: "whiteAlpha.300"
+                                    }}
+                                />
+                            </FormControl>
+
+                            <FormControl id="userId" isRequired>
+                                <FormLabel color={"white"}>User ID</FormLabel>
+                                <Input
+                                    name="userId"
+                                    value={user ? user.uid : ""}
+                                    isDisabled={true}
+                                    onChange={handleCreateOrderChange}
+                                    placeholder="Enter User ID"
+                                    style={{
+                                        opacity: 0.2,
+                                    }}
+                                    backgroundColor={"whiteAlpha.50"}
+                                    color={"white"}
+                                    borderColor={"whiteAlpha.100"}
+                                    _hover={{
+                                        borderColor: "whiteAlpha.300"
+                                    }}
+                                />
+                            </FormControl>
+
+                            <FormControl id="address" isRequired>
+                                <FormLabel color={"white"}>Address</FormLabel>
+                                <Textarea
+                                    name="address"
+                                    value={newOrder.address}
+                                    onChange={handleCreateOrderChange}
+                                    placeholder="Enter Delivery Address"
+                                    _placeholder={{
+                                        color: "whiteAlpha.400"
+                                    }}
+                                    backgroundColor={"whiteAlpha.50"}
+                                    color={"white"}
+                                    borderColor={"whiteAlpha.100"}
+                                    _hover={{
+                                        borderColor: "whiteAlpha.300"
+                                    }}
+                                />
+                            </FormControl>
+
+                            <FormControl id="flavors" isRequired>
+                                <FormLabel color={"white"}>Flavors</FormLabel>
+                                <Input
+                                    name="flavors"
+                                    value={newOrder.flavors.join(", ")}
+                                    onChange={handleCreateOrderChange}
+                                    placeholder="Enter flavors separated by commas"
+                                    _placeholder={{
+                                        color: "whiteAlpha.400"
+                                    }}
+                                    backgroundColor={"whiteAlpha.50"}
+                                    color={"white"}
+                                    borderColor={"whiteAlpha.100"}
+                                    _hover={{
+                                        borderColor: "whiteAlpha.300"
+                                    }}
+                                />
+                            </FormControl>
+
+                            <FormControl id="quantity" isRequired>
+                                <FormLabel color={"white"}>Quantity</FormLabel>
+                                <Input
+                                    type="number"
+                                    name="quantity"
+                                    value={newOrder.quantity}
+                                    onChange={handleCreateOrderChange}
+                                    placeholder="Enter Quantity"
+                                    min={1}
+                                    _placeholder={{
+                                        color: "whiteAlpha.400"
+                                    }}
+                                    backgroundColor={"whiteAlpha.50"}
+                                    color={"white"}
+                                    borderColor={"whiteAlpha.100"}
+                                    _hover={{
+                                        borderColor: "whiteAlpha.300"
+                                    }}
+                                />
+                            </FormControl>
+
+                            <FormControl id="timeSlot" isRequired>
+                                <FormLabel color={"white"}>Time Slot</FormLabel>
+                                <Input
+                                    name="timeSlot"
+                                    value={newOrder.timeSlot}
+                                    onChange={handleCreateOrderChange}
+                                    placeholder="e.g., 10:00 AM - 11:00 AM"
+                                    _placeholder={{
+                                        color: "whiteAlpha.400"
+                                    }}
+                                    backgroundColor={"whiteAlpha.50"}
+                                    color={"white"}
+                                    borderColor={"whiteAlpha.100"}
+                                    _hover={{
+                                        borderColor: "whiteAlpha.300"
+                                    }}
+                                />
+                            </FormControl>
+
+                            <FormControl id="status" isRequired>
+                                <FormLabel color={"white"}>Status</FormLabel>
+                                <Select
+                                    name="status"
+                                    value={newOrder.status}
+                                    onChange={handleCreateOrderChange}
+                                    _placeholder={{
+                                        color: "whiteAlpha.400"
+                                    }}
+                                    backgroundColor={"whiteAlpha.50"}
+                                    color={"white"}
+                                    borderColor={"whiteAlpha.100"}
+                                    _hover={{
+                                        borderColor: "whiteAlpha.300"
+                                    }}
+                                >
+                                    <option value="pending">Pending</option>
+                                    <option value="preparing">Preparing</option>
+                                    <option value="out-for-delivery">Out for Delivery</option>
+                                    <option value="delivered">Delivered</option>
+                                    <option value="canceled">Canceled</option>
+                                </Select>
+                            </FormControl>
+                        </Stack>
+                    </DrawerBody>
+                    <DrawerFooter justifyContent={"space-between"} display={"flex"} width={"100%"}>
+                        <Button variant="ghost" colorScheme="whiteAlpha" mr={3} onClick={onCreateDrawerClose}>
+                            Cancel
+                        </Button>
+                        <Button colorScheme="blackAlpha" onClick={handleCreateOrderSubmit} isLoading={isSubmitting} loadingText="Submitting Order">
+                            Create
+                        </Button>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
+
         </Flex>
     );
 };

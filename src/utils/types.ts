@@ -13,3 +13,18 @@ export default interface AppUser {
     createdAt: Timestamp;
     updatedAt: Timestamp;
 }
+
+export interface Order {
+    id: string;
+    orderId: string;
+    userId: string;
+    address: string;
+    flavors: string[];
+    quantity: number;
+    timeSlot: string;
+    status: 'pending' | 'preparing' | 'out-for-delivery' | 'delivered' | 'canceled';
+    assignedDriverId?: string;
+    deliveryClusterId?: string;
+    createdAt: Timestamp;
+    updatedAt: Timestamp;
+}
