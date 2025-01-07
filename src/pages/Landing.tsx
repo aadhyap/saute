@@ -4,7 +4,6 @@ import { ArrowForwardIcon } from "@chakra-ui/icons"; // Importing a better arrow
 import Logo from "@/components/Logo";
 
 const Landing: React.FC = () => {
-    const [foodSuggestions] = useState(["Pad Thai", "Biryani", "Pizza", "Sushi", "Tacos", "Pasta", "Burger", "Ramen"]);
     const { isOpen, onOpen, onClose } = useDisclosure(); // Disclosure hook for modal
 
   
@@ -15,10 +14,9 @@ const Landing: React.FC = () => {
 
     const handleEmailSubmit = () => {
         console.log("Email submitted:", email);
-        // Open modal to ask for name, email, and message
         onOpen();
     };
-    // State to handle user input for modal
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
 
@@ -47,19 +45,21 @@ const Landing: React.FC = () => {
             />
 
             {/* Overlay */}
+            {/* Fixed Black Header */}
             <Box
-                position="absolute"
+                position="fixed"
                 top="0"
                 left="0"
                 width="100%"
-                height="100%"
-                bg="rgba(0, 0, 0, 0.7)"
-                zIndex={2}
-            />
-
-            <Flex position="absolute" top="10px" left="10px" zIndex={3}>
-                <Logo width="200" height="45" isDark={true} />
-            </Flex>
+                backgroundColor="black"
+                zIndex={1000} // Ensure it stays on top of other content
+                py={4} // Padding for height
+                boxShadow="0 4px 6px rgba(0, 0, 0, 0.1)"
+            >
+                <Flex justify="center" align="center">
+                    <Logo width="200" height="45" isDark={true} />
+                </Flex>
+            </Box>
 
             {/* Hero Section */}
             <Flex flex="1" align="center" direction="column" justifyContent="center" alignItems="center" minHeight="100vh" zIndex={3}>
