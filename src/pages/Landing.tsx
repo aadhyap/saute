@@ -1,7 +1,8 @@
-import { Flex, Box, Stack, Heading, Text, Button, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, GridItem, Grid } from "@chakra-ui/react";
+import { Flex, Box, Stack, Heading, Text, Button, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, GridItem, Grid, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons"; // Importing a better arrow icon
 import Logo from "@/components/Logo";
+import { FaEnvelope, FaInstagram } from "react-icons/fa";
 
 const Landing: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure(); // Disclosure hook for modal
@@ -106,6 +107,35 @@ const Landing: React.FC = () => {
                             )}
                         </Flex>
                     </Box>
+
+
+                    {/* Social Media Icons */}
+                    <Flex mt={4}>
+                        {/* Instagram Icon */}
+                        <IconButton
+                            as="a"
+                            href="https://www.instagram.com/mysaute" // Replace with your Instagram link
+                            target="_blank"
+                            aria-label="Instagram"
+                            icon={<FaInstagram />}
+                            colorScheme="whiteAlpha"
+                            variant="outline"
+                            size="lg"
+                            mr={4}
+                        />
+                        
+                        {/* Email Icon */}
+                        <IconButton
+                            as="a"
+                            href="mailto:admin@mysaute.com" // Replace with your email
+                            target="_blank"
+                            aria-label="Email"
+                            icon={<FaEnvelope />}
+                            colorScheme="whiteAlpha"
+                            variant="outline"
+                            size="lg"
+                        />
+                    </Flex>
                 </Stack>
                 
             </Flex>
