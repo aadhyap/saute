@@ -128,24 +128,21 @@ const Landing: React.FC = () => {
             </Flex>
             {/* Content Sections Below Hero */}
             <Flex direction="column" pt="70vh"> {/* Add padding top to move sections down */}
-                {/* How It Works Section */}
-                <Flex direction="column" py={16} bg="gray.100" align="center">
-                    <Heading size="xl" mb={4}>How It Works</Heading>
-                    <Stack direction={{ base: "column", md: "row" }} spacing={8} align="center">
-                        <Box textAlign="center">
-                            <Text fontSize="lg" fontWeight="bold" color="gray.700">1. Crave</Text>
-                            <Text color="gray.500">Let us know what you're craving and we'll find the best meal options for you.</Text>
-                        </Box>
-                        <Box textAlign="center">
-                            <Text fontSize="lg" fontWeight="bold" color="gray.700">2. Choose</Text>
-                            <Text color="gray.500">Browse through your customized food suggestions and pick your favorite.</Text>
-                        </Box>
-                        <Box textAlign="center">
-                            <Text fontSize="lg" fontWeight="bold" color="gray.700">3. Enjoy</Text>
-                            <Text color="gray.500">Order and enjoy a delicious home-cooked meal, delivered right to your door.</Text>
-                        </Box>
-                    </Stack>
-                </Flex>
+                {/* About Section */}
+                <Flex direction="column" py={16} align="center" textAlign="center" bg="gray.100">
+    <Heading size="lg" mb={4} fontFamily="'Playfair Display', serif" fontWeight="700" color="gray.800">
+    Savor. Discover. Delight.
+    </Heading>
+    <Text fontSize="lg" fontWeight="bold" maxW="2xl" color="gray.700" mb={4} fontFamily="'Lora', serif">
+    At Sauté, we’re not just about food; we’re about experience. Our mission is to bring the adventure of a private chef directly to your door
+    </Text>
+    <Text fontSize="lg" color="gray.500" maxW="2xl" mb={4} fontFamily="'Lora', serif">
+    Every week, you’ll indulge in curated meals from passionate chefs, tailored to your tastes and cravings. For just $50 a month, you’ll get access to a personal culinary artist who serves you exclusive dishes from cuisines like Asian fusion, vegan comfort food, and more.
+    </Text>
+    <Text fontSize="lg" color="gray.500" maxW="2xl" fontFamily="'Lora', serif">
+    Get ready to discover bold flavors and unexpected twists—because Sauté is where food is more than just a meal; it’s an experience. No more settling for fast food or takeout—it's time to savor meals crafted with care, fresh ingredients, and the artistry of passionate chefs.
+    </Text>
+</Flex>
 
                 {/* Featured Meals Section */}
                 <Flex direction="column" py={16} align="center">
