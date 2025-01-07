@@ -273,19 +273,7 @@ const Landing: React.FC = () => {
         
 
                 {/* Testimonial Section */}
-                <Flex direction="column" py={16} bg="gray.100" align="center">
-                    <Heading size="xl" mb={4}>What Our Customers Are Saying</Heading>
-                    <Stack spacing={8} maxW="xl" align="center">
-                        <Box textAlign="center" maxW="sm">
-                            <Text fontSize="lg" fontWeight="bold" color="gray.700">"The food was amazing, and I got exactly what I was craving!"</Text>
-                            <Text color="gray.500">– Jane D.</Text>
-                        </Box>
-                        <Box textAlign="center" maxW="sm">
-                            <Text fontSize="lg" fontWeight="bold" color="gray.700">"A delicious meal delivered straight to my door. Will order again!"</Text>
-                            <Text color="gray.500">– John S.</Text>
-                        </Box>
-                    </Stack>
-                </Flex>
+                
                 </Flex>
 
             
