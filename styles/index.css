@@ -13,13 +13,25 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+html, body  {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
   background-color: #121212;
 }
 
+
+.slick-active .custom-dot  {
+  background-color: white !important;
+}
+
+
+.custom-video-background {
+  height: "100%" !important;
+  width: "100%" !important;
+}
+
+.custom-video-background video { 
+  height: "100vh" !important; 
+  min-width: "100vw" !important; 
+  wid
+}
 
