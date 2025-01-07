@@ -112,25 +112,23 @@ const Landing: React.FC = () => {
             {/* Content Sections Below Hero */}
             <Flex direction="column" pt="0vh"> {/* Add padding top to move sections down */}
                 {/* About Section */}
-                <Flex direction="column" py={16} align="center" textAlign="center" bg="gray.100">
-    <Heading size="lg" mb={4} fontFamily="'Playfair Display', serif" fontWeight="700" color="gray.800">
+                <Flex direction="column" py={16} align="center" textAlign="center" bg="black">
+    <Heading size="lg" mb={4} fontFamily="'Playfair Display', serif" fontWeight="700" color="white">
     Savor. Discover. Delight.
     </Heading>
-    <Text fontSize="lg" fontWeight="bold" maxW="2xl" color="gray.700" mb={4} fontFamily="'Lora', serif">
+    <Text fontSize="md" fontWeight="bold" maxWidth="900px" color="white" mb={4} fontFamily="'Lora', serif">
     At Sauté, we’re not just about food; we’re about experience. Our mission is to bring the adventure of a private chef directly to your door
     </Text>
-    <Text fontSize="lg" color="gray.500" maxW="2xl" mb={4} fontFamily="'Lora', serif">
+    <Text fontSize="md" color="white" maxWidth="900px" mb={4} fontFamily="'Lora', serif">
     Every week, you’ll indulge in curated meals from passionate chefs, tailored to your tastes and cravings. For just $50 a month, you’ll get access to a personal culinary artist who serves you exclusive dishes from cuisines like Asian fusion, vegan comfort food, and more.
     </Text>
-    <Text fontSize="lg" color="gray.500" maxW="2xl" fontFamily="'Lora', serif">
+    <Text fontSize="md" color="white" maxWidth="900px"fontFamily="'Lora', serif">
     Get ready to discover bold flavors and unexpected twists—because Sauté is where food is more than just a meal; it’s an experience. No more settling for fast food or takeout—it's time to savor meals crafted with care, fresh ingredients, and the artistry of passionate chefs.
     </Text>
 </Flex>
 
-                {/* "How It Works" Section */}
-
                 {/* 2x2 Food Grid Section with Overlays */}
-<Flex direction="column" py={16} bg="black" align="center">
+<Flex direction="column"  bg="black" align="center">
   <Grid
     templateColumns="repeat(2, 1fr)"
     templateRows="repeat(2, 1fr)"
