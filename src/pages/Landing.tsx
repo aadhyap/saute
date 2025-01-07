@@ -124,7 +124,68 @@ const Landing: React.FC = () => {
                         </Text>
                     </Box>
                 </Stack>
+                
             </Flex>
+            {/* Content Sections Below Hero */}
+            <Flex direction="column" pt="70vh"> {/* Add padding top to move sections down */}
+                {/* How It Works Section */}
+                <Flex direction="column" py={16} bg="gray.100" align="center">
+                    <Heading size="xl" mb={4}>How It Works</Heading>
+                    <Stack direction={{ base: "column", md: "row" }} spacing={8} align="center">
+                        <Box textAlign="center">
+                            <Text fontSize="lg" fontWeight="bold" color="gray.700">1. Crave</Text>
+                            <Text color="gray.500">Let us know what you're craving and we'll find the best meal options for you.</Text>
+                        </Box>
+                        <Box textAlign="center">
+                            <Text fontSize="lg" fontWeight="bold" color="gray.700">2. Choose</Text>
+                            <Text color="gray.500">Browse through your customized food suggestions and pick your favorite.</Text>
+                        </Box>
+                        <Box textAlign="center">
+                            <Text fontSize="lg" fontWeight="bold" color="gray.700">3. Enjoy</Text>
+                            <Text color="gray.500">Order and enjoy a delicious home-cooked meal, delivered right to your door.</Text>
+                        </Box>
+                    </Stack>
+                </Flex>
+
+                {/* Featured Meals Section */}
+                <Flex direction="column" py={16} align="center">
+                    <Heading size="xl" mb={4}>Featured Meals</Heading>
+                    <Stack direction={{ base: "column", md: "row" }} spacing={8} justify="center">
+                        <Box boxSize="sm" bg="gray.200" borderRadius="md" overflow="hidden">
+                            <img src="/images/pad-thai.jpg" alt="Pad Thai" />
+                            <Text fontWeight="bold" p={4}>Pad Thai</Text>
+                        </Box>
+                        <Box boxSize="sm" bg="gray.200" borderRadius="md" overflow="hidden">
+                            <img src="/images/biryani.jpg" alt="Biryani" />
+                            <Text fontWeight="bold" p={4}>Biryani</Text>
+                        </Box>
+                        <Box boxSize="sm" bg="gray.200" borderRadius="md" overflow="hidden">
+                            <img src="/images/sushi.jpg" alt="Sushi" />
+                            <Text fontWeight="bold" p={4}>Sushi</Text>
+                        </Box>
+                    </Stack>
+                </Flex>
+
+                {/* Testimonial Section */}
+                <Flex direction="column" py={16} bg="gray.100" align="center">
+                    <Heading size="xl" mb={4}>What Our Customers Are Saying</Heading>
+                    <Stack spacing={8} maxW="xl" align="center">
+                        <Box textAlign="center" maxW="sm">
+                            <Text fontSize="lg" fontWeight="bold" color="gray.700">"The food was amazing, and I got exactly what I was craving!"</Text>
+                            <Text color="gray.500">– Jane D.</Text>
+                        </Box>
+                        <Box textAlign="center" maxW="sm">
+                            <Text fontSize="lg" fontWeight="bold" color="gray.700">"A delicious meal delivered straight to my door. Will order again!"</Text>
+                            <Text color="gray.500">– John S.</Text>
+                        </Box>
+                    </Stack>
+                </Flex>
+
+                
+                
+                </Flex>
+
+            
 
             {/* Footer */}
             <Flex align="center" justify="center" h="24" zIndex={3}>
@@ -172,7 +233,8 @@ const Landing: React.FC = () => {
                                 as="textarea"
                             />
                         </Stack>
-                    </ModalBody>
+                    </ModalBody>   
+                    
                     <ModalFooter>
                         <Button colorScheme="blue" onClick={handleFormSubmit}>
                             Submit
@@ -180,7 +242,12 @@ const Landing: React.FC = () => {
                     </ModalFooter>
                 </ModalContent>
             </Modal>
+            
+            
+            
         </Flex>
+        
+        
     );
 };
 
