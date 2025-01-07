@@ -144,24 +144,63 @@ const Landing: React.FC = () => {
     </Text>
 </Flex>
 
-                {/* Featured Meals Section */}
-                <Flex direction="column" py={16} align="center">
-                    <Heading size="xl" mb={4}>Featured Meals</Heading>
-                    <Stack direction={{ base: "column", md: "row" }} spacing={8} justify="center">
-                        <Box boxSize="sm" bg="gray.200" borderRadius="md" overflow="hidden">
-                            <img src="/images/pad-thai.jpg" alt="Pad Thai" />
-                            <Text fontWeight="bold" p={4}>Pad Thai</Text>
-                        </Box>
-                        <Box boxSize="sm" bg="gray.200" borderRadius="md" overflow="hidden">
-                            <img src="/images/biryani.jpg" alt="Biryani" />
-                            <Text fontWeight="bold" p={4}>Biryani</Text>
-                        </Box>
-                        <Box boxSize="sm" bg="gray.200" borderRadius="md" overflow="hidden">
-                            <img src="/images/sushi.jpg" alt="Sushi" />
-                            <Text fontWeight="bold" p={4}>Sushi</Text>
-                        </Box>
-                    </Stack>
+                {/* "How It Works" Section */}
+
+                {/* Section 2: Text Right, Image Left */}
+            <Box bg="#ffbc99" width="100%" height="65vh" display="flex" alignItems="center" justifyContent="center">
+                <Flex width="100%" alignItems="center" justifyContent="space-between" px={{ base: 4, md: 8 }}>
+                    <Box width="45%" order={2}>
+                        <Heading size="lg" mb={4}>Join the Sauté Journey</Heading>
+                        <Text fontSize="lg" mb={4}>
+                            Sign up, choose your cuisine, and let us know your dietary needs.
+                        </Text>
+                        <Text fontSize="lg" mb={4}>
+                            We will match you with the perfect chef and meal options for your lifestyle.
+                        </Text>
+                    </Box>
+                    <Box width="45%" order={1}>
+                        <img src="/path-to-your-image.jpg" alt="Journey image" width="100%" height="auto" />
+                    </Box>
                 </Flex>
+            </Box>
+
+           {/* Section 3: Text Left, Image Right */}
+            <Box bg="#ff9966" width="100%" height="65vh" display="flex" alignItems="center" justifyContent="center">
+                <Flex width="100%" alignItems="center" justifyContent="space-between" px={{ base: 4, md: 8 }}>
+                    <Box width="45%" order={1}>
+                        <Heading size="lg" mb={4}>Meet Your Chef</Heading>
+                        <Text fontSize="lg" mb={4}>
+                            We match you with a local chef who brings your meals to life.
+                        </Text>
+                        <Text fontSize="lg" mb={4}>
+                            They craft meals just for you, bringing gourmet tastes to your kitchen with fresh, locally sourced ingredients.
+                        </Text>
+                    </Box>
+                    <Box width="45%" order={2}>
+                        <img src="/path-to-your-image.jpg" alt="Chef image" width="100%" height="auto" />
+                    </Box>
+                </Flex>
+            </Box>
+
+            {/* Section 4: Text Right, Image Left */}
+            <Box bg="#ff7f33" width="100%" height="65vh" display="flex" alignItems="center" justifyContent="center">
+                <Flex width="100%" alignItems="center" justifyContent="space-between" px={{ base: 4, md: 8 }}>
+                    <Box width="45%" order={2}>
+                        <Heading size="lg" mb={4}>Pay & Taste</Heading>
+                        <Text fontSize="lg" mb={4}>
+                            Lock in your spot, and get ready for a week full of flavor. We take care of the rest.
+                        </Text>
+                        <Text fontSize="lg" mb={4}>
+                            You pay for your meals and enjoy hand-crafted dishes delivered directly to your door.
+                        </Text>
+                    </Box>
+                    <Box width="45%" order={1}>
+                        <img src="/path-to-your-image.jpg" alt="Payment image" width="100%" height="auto" />
+                    </Box>
+                </Flex>
+            </Box>
+
+        
 
                 {/* Testimonial Section */}
                 <Flex direction="column" py={16} bg="gray.100" align="center">
