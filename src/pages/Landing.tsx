@@ -9,17 +9,34 @@ const Landing: React.FC = () => {
 
   
 
+    // Email change handler
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
+        setIsEmailValid(true); // Reset email validity while typing
     };
 
+    // Email submission handler
     const handleEmailSubmit = () => {
-        console.log("Email submitted:", email);
-        onOpen();
+        setIsSubmitted(true);
+        if (validateEmail(email)) {
+            console.log("Email submitted:", email);
+            onOpen();
+        } else {
+            setIsEmailValid(false); // Set email validity to false if invalid
+        }
     };
+
+    // Basic email validation function
+    const validateEmail = (email: string) => {
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return regex.test(email);
+    };
+    
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [isEmailValid, setIsEmailValid] = useState(true); // Track email validity
+    const [isSubmitted, setIsSubmitted] = useState(false); 
 
     const handleFormSubmit = () => {
         console.log("User Info:", { name, email });
@@ -107,8 +124,12 @@ const Landing: React.FC = () => {
                             )}
                         </Flex>
                     </Box>
-
-
+                    {/* Error message */}
+                    {!isEmailValid && isSubmitted && (
+                                <Text color="red" fontSize="sm" mt={2}>
+                                    Please enter a valid email address.
+                                </Text>
+                            )}
                     {/* Social Media Icons */}
                     <Flex mt={4}>
                         {/* Instagram Icon */}
@@ -137,7 +158,6 @@ const Landing: React.FC = () => {
                         />
                     </Flex>
                 </Stack>
-                
             </Flex>
             {/* Content Sections Below Hero */}
             <Flex direction="column" pt="0vh"> {/* Add padding top to move sections down */}
