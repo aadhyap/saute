@@ -1,39 +1,29 @@
 import { Flex, Box, Stack, Heading, Text, Button, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, GridItem, Grid } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons"; // Importing a better arrow icon
 import Logo from "@/components/Logo";
 
 const Landing: React.FC = () => {
-    const [cravingFood, setCravingFood] = useState("");
     const [foodSuggestions] = useState(["Pad Thai", "Biryani", "Pizza", "Sushi", "Tacos", "Pasta", "Burger", "Ramen"]);
-    const [currentFoodIndex, setCurrentFoodIndex] = useState(0);
     const { isOpen, onOpen, onClose } = useDisclosure(); // Disclosure hook for modal
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCurrentFoodIndex((prevIndex) => (prevIndex + 1) % foodSuggestions.length);
-        }, 2000); // Change food suggestion every 2 seconds
+  
 
-        return () => clearInterval(intervalId); // Clean up the interval on component unmount
-    }, []);
-
-    const handleCravingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCravingFood(event.target.value);
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
     };
 
-    const handleFoodSubmit = () => {
-        console.log("Craving submitted:", cravingFood);
+    const handleEmailSubmit = () => {
+        console.log("Email submitted:", email);
         // Open modal to ask for name, email, and message
         onOpen();
     };
-
     // State to handle user input for modal
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
 
     const handleFormSubmit = () => {
-        console.log("User Info:", { name, email, message });
+        console.log("User Info:", { name, email });
         onClose(); // Close modal after submission
     };
 
@@ -78,16 +68,16 @@ const Landing: React.FC = () => {
                         Feed your soul with food you love
                     </Heading>
                     <Text fontSize={"lg"} textStyle="md" maxW="md" fontWeight={600} color={"white"} textAlign="center">
-                        What home-cooked meal are you craving right now?
+                        Be our first customers to our limited edition recipes!
                     </Text>
 
                     {/* Input Field with Arrow Button */}
-                    <Box width="100%" maxW="200px">
+                    <Box width="100%" maxW="300px">
                         <Flex position="relative" align="center">
                             <Input
-                                placeholder="Type your craving..."
-                                value={cravingFood}
-                                onChange={handleCravingChange}
+                                placeholder="Type your email..."
+                                value={email}
+                                onChange={handleEmailChange}
                                 borderRadius="full"
                                 backgroundColor="white"
                                 _focus={{ borderColor: "#cd4630" }}
@@ -96,7 +86,7 @@ const Landing: React.FC = () => {
                                 mt={4}
                             />
                             {/* Arrow Icon */}
-                            {cravingFood && (
+                            {email && (
                                 <Button
                                     size="lg"
                                     color={"white"}
@@ -108,20 +98,13 @@ const Landing: React.FC = () => {
                                     top="27%" // Vertically center the button
                                     borderRadius="full"
                                     zIndex={1}
-                                    onClick={handleFoodSubmit} // On arrow click, show modal
+                                    onClick={handleEmailSubmit} // On arrow click, show modal
                                     aria-label="Submit craving"
                                 >
                                     <ArrowForwardIcon />
                                 </Button>
                             )}
                         </Flex>
-                    </Box>
-
-                    {/* Food Suggestions */}
-                    <Box textAlign="center" color="white" fontSize="lg" fontWeight="bold">
-                        <Text transition="opacity 0.5s ease-in-out">
-                            {foodSuggestions[currentFoodIndex]}
-                        </Text>
                     </Box>
                 </Stack>
                 
@@ -270,10 +253,6 @@ const Landing: React.FC = () => {
                 </Flex>
             </Box>
 
-        
-
-                {/* Testimonial Section */}
-                
                 </Flex>
 
             
@@ -307,21 +286,6 @@ const Landing: React.FC = () => {
                                 borderRadius="full"
                                 size="lg"
                                 type="email"
-                            />
-                            <Input
-                                placeholder="City/Town"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                borderRadius="full"
-                                size="lg"
-                            />
-                            <Input
-                                placeholder="Anything you'd liked us to know?"
-                                value={message}
-                                onChange={(e) => setMessage(e.target.value)}
-                                borderRadius="md"
-                                size="lg"
-                                as="textarea"
                             />
                         </Stack>
                     </ModalBody>   
