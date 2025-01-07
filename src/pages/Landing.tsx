@@ -1,4 +1,4 @@
-import { Flex, Box, Stack, Heading, Text, Button, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/react";
+import { Flex, Box, Stack, Heading, Text, Button, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, GridItem, Grid } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons"; // Importing a better arrow icon
 import Logo from "@/components/Logo";
@@ -145,6 +145,65 @@ const Landing: React.FC = () => {
 </Flex>
 
                 {/* "How It Works" Section */}
+
+                {/* 2x2 Food Grid Section with Overlays */}
+<Flex direction="column" py={16} bg="gray.100" align="center">
+  <Heading size="lg" mb={4} fontFamily="'Playfair Display', serif" fontWeight="700" color="gray.800">
+    Explore Our Culinary Artistry
+  </Heading>
+  <Text fontSize="lg" color="gray.700" mb={8} fontFamily="'Lora', serif">
+    Feast your eyes on a gallery of mouth-watering dishes.
+  </Text>
+  <Grid
+    templateColumns="repeat(2, 1fr)"
+    templateRows="repeat(2, 1fr)"
+    gap={4}
+    width="80vw"
+    height="80vh"
+  >
+    {[
+   { src: "/src/assets/BombayChaat.jpg", title: "Bombay Chaat Bowl", desc: "Roasted sweet potatoes, spiced chickpeas, and tamarind chutney come together in a healthy twist on your favorite chaat—tangy, savory, and vibrant." },
+   { src: "/src/assets/DesiProteinBowl.jpg", title: "Desi Protein Bowl", desc: "A protein-packed blend of spiced chickpeas, fresh cucumber-tomato salad, and a zesty coriander chutney for a light, satisfying meal." },
+   { src: "/src/assets/eggpuffbowl.jpg", title: "Eggstasy Bowl", desc: "Soft-boiled eggs, roasted cauliflower, and sautéed onions on farro, topped with tangy tamarind chutney—comforting and packed with flavor." },
+   { src: "/src/assets/IndoChineseBowl.jpg", title: "Indo Chinese Bowl", desc: "Grilled chicken or paneer, spicy chili-garlic sauce, and vibrant stir-fried veggies make this bowl an irresistible fusion of bold flavors and smoky goodness." },
+].map((item, index) => (
+   <GridItem
+     key={index}
+     position="relative"
+     bgImage={`url(${item.src})`}
+     bgSize="cover"
+     bgPosition="center"
+     borderRadius="md"
+     overflow="hidden"
+     height="100%"
+   >
+     {/* Overlay Content */}
+     <Box
+       position="absolute"
+       left={0}
+       bottom={0} // Align content to the bottom
+       p={4}
+       bg="rgba(0, 0, 0, 0.5)"
+       color="white"
+       borderTopLeftRadius="md"
+       borderBottomRightRadius="md"
+     >
+       <Heading size="sm" fontWeight="bold" mb={2}>
+         {item.title}
+       </Heading>
+       <Text fontSize="sm" mb={2}>
+         {item.desc}
+       </Text>
+       <Button size="sm" colorScheme="teal">
+         Order Now
+       </Button>
+     </Box>
+   </GridItem>
+ ))}
+
+  </Grid>
+</Flex>
+
 
                 {/* Section 2: Text Right, Image Left */}
             <Box bg="#ffbc99" width="100%" height="65vh" display="flex" alignItems="center" justifyContent="center">
