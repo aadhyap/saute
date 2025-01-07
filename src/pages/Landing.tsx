@@ -10,13 +10,17 @@ import {
     Icon,
     SimpleGrid,
     Square,
+    Grid,
+    GridItem,
+    Button,
+    IconButton,
 } from "@chakra-ui/react";
 import Logo from "@/components/Logo";
 import Footer from "@/components/Footer";
 import EmailSubscribeForm from "@/components/EmailSubscribeForm";
 import SlickTestimonialSlideshow from "@/components/SlickTestimonialSlideshow";
 import { BsFillMoonFill, BsStars } from 'react-icons/bs'
-import { FaAccessibleIcon, FaExpandAlt, FaPaintBrush } from 'react-icons/fa'
+import { FaAccessibleIcon, FaEnvelope, FaExpandAlt, FaInstagram, FaPaintBrush } from 'react-icons/fa'
 import { IoRocketSharp } from 'react-icons/io5'
 import FAQ from "@/components/FAQ";
 
@@ -120,6 +124,34 @@ const Landing: React.FC = () => {
 
                         <EmailSubscribeForm />
 
+                        {/* Social Media Icons */}
+                        <Flex mt={4}>
+                            {/* Instagram Icon */}
+                            <IconButton
+                                as="a"
+                                href="https://www.instagram.com/mysaute" // Replace with your Instagram link
+                                target="_blank"
+                                aria-label="Instagram"
+                                icon={<FaInstagram />}
+                                colorScheme="whiteAlpha"
+                                variant="outline"
+                                size="lg"
+                                mr={4}
+                            />
+
+                            {/* Email Icon */}
+                            <IconButton
+                                as="a"
+                                href="mailto:admin@mysaute.com" // Replace with your email
+                                target="_blank"
+                                aria-label="Email"
+                                icon={<FaEnvelope />}
+                                colorScheme="whiteAlpha"
+                                variant="outline"
+                                size="lg"
+                            />
+                        </Flex>
+
 
                     </Container>
                 </Stack>
@@ -142,6 +174,78 @@ const Landing: React.FC = () => {
                         Get ready to discover bold flavors and unexpected twists—because Sauté is where food is more than just a meal; it’s an experience. No more settling for fast food or takeout—it's time to savor meals crafted with care, fresh ingredients, and the artistry of passionate chefs.
                     </Text>
                 </Container>
+            </Flex>
+
+
+
+            {/* 2x2 Food Grid Section with Overlays */}
+            <Flex position={"relative"} direction="column" pb={14} align="center" textAlign="center" color={"white"}>
+                <Grid
+                    templateColumns="repeat(2, 1fr)"
+                    templateRows="repeat(2, 1fr)"
+                    gap={4}
+                    width="90vw"
+                    height="150vh"
+                >
+                    {[
+                        { src: "/src/assets/BombayChaat.jpg", title: "Bombay Chaat Bowl", desc: "Roasted sweet potatoes, spiced chickpeas, and tamarind chutney come together in a healthy twist on your favorite chaat—tangy, savory, and vibrant." },
+                        { src: "/src/assets/DesiProteinBowl.jpg", title: "Desi Protein Bowl", desc: "A protein-packed blend of spiced chickpeas, fresh cucumber-tomato salad, and a zesty coriander chutney for a light, satisfying meal." },
+                        { src: "/src/assets/eggpuffbowl.jpg", title: "Eggstasy Bowl", desc: "Soft-boiled eggs, roasted cauliflower, and sautéed onions on farro, topped with tangy tamarind chutney—comforting and packed with flavor." },
+                        { src: "/src/assets/IndoChineseBowl.jpg", title: "Indo Chinese Bowl", desc: "Grilled chicken or paneer, spicy chili-garlic sauce, and vibrant stir-fried veggies make this bowl an irresistible fusion of bold flavors and smoky goodness." },
+                    ].map((item, index) => (
+                        <GridItem
+                            key={index}
+                            position="relative"
+                            bgImage={`url(${item.src})`}
+                            bgSize="cover"
+                            bgPosition="center"
+                            borderRadius="md"
+                            overflow="hidden"
+                            height="100%"
+                        >
+                            {/* Gray Overlay */}
+                            <Box
+                                position="absolute"
+                                top={0}
+                                left={0}
+                                right={0}
+                                bottom={0}
+                                bg="rgba(0, 0, 0, 0.2)" // semi-transparent black overlay
+                            />
+                            {/* Overlay Content */}
+                            <Box
+                                position="absolute"
+                                left={0}
+                                bottom={0} // Align content to the bottom
+                                p={4}
+                                color="white"
+                                borderTopLeftRadius="md"
+                                borderBottomRightRadius="md"
+                                textAlign={"left"}
+                            >
+                                <Heading size="sm" fontWeight="bold" mb={2}>
+                                    {item.title}
+                                </Heading>
+                                <Text fontSize="sm" mb={2}>
+                                    {item.desc}
+                                </Text>
+                                <Button
+                                    size="lg" // Makes the button larger
+                                    colorScheme="blackAlpha"
+                                    backgroundColor="black"
+                                    color="white"
+                                    borderRadius="0" // Sharp edges
+                                    paddingX={6} // Adjusts horizontal padding for a wider button
+                                    paddingY={4} // Adjusts vertical padding for a taller button
+                                    _hover={{ backgroundColor: "gray.800" }} // Changes the color when hovered over
+                                >
+                                    Subscribe Now
+                                </Button>
+                            </Box>
+                        </GridItem>
+                    ))}
+
+                </Grid>
             </Flex>
 
             {/* "How It Works" Section */}
