@@ -43,8 +43,7 @@ const Landing: React.FC = () => {
                 objectFit="cover"
                 zIndex={1}
             />
-
-            {/* Overlay */}
+            
             {/* Fixed Black Header */}
             <Box
                 position="fixed"
@@ -57,9 +56,10 @@ const Landing: React.FC = () => {
                 boxShadow="0 4px 6px rgba(0, 0, 0, 0.1)"
             >
                 <Flex justify="center" align="center">
-                    <Logo width="200" height="45" isDark={true} />
+                    <Logo width="200" height="85" isDark={true} />
                 </Flex>
             </Box>
+            
 
             {/* Hero Section */}
             <Flex flex="1" align="center" direction="column" justifyContent="center" alignItems="center" minHeight="100vh" zIndex={3}>
