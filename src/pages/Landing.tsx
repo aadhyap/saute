@@ -147,13 +147,7 @@ const Landing: React.FC = () => {
                 {/* "How It Works" Section */}
 
                 {/* 2x2 Food Grid Section with Overlays */}
-<Flex direction="column" py={16} bg="gray.100" align="center">
-  <Heading size="lg" mb={4} fontFamily="'Playfair Display', serif" fontWeight="700" color="gray.800">
-    Explore Our Culinary Artistry
-  </Heading>
-  <Text fontSize="lg" color="gray.700" mb={8} fontFamily="'Lora', serif">
-    Feast your eyes on a gallery of mouth-watering dishes.
-  </Text>
+<Flex direction="column" py={16} bg="black" align="center">
   <Grid
     templateColumns="repeat(2, 1fr)"
     templateRows="repeat(2, 1fr)"
@@ -202,7 +196,16 @@ const Landing: React.FC = () => {
        <Text fontSize="sm" mb={2}>
          {item.desc}
        </Text>
-       <Button size="sm" colorScheme="teal">
+       <Button 
+       size="lg" // Makes the button larger
+       colorScheme="blackAlpha"
+       backgroundColor="black"
+       color="white"
+       borderRadius="0" // Sharp edges
+       paddingX={6} // Adjusts horizontal padding for a wider button
+       paddingY={4} // Adjusts vertical padding for a taller button
+       _hover={{ backgroundColor: "gray.800" }} // Changes the color when hovered over
+       >
          Order Now
        </Button>
      </Box>
