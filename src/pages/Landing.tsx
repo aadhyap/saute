@@ -158,8 +158,8 @@ const Landing: React.FC = () => {
     templateColumns="repeat(2, 1fr)"
     templateRows="repeat(2, 1fr)"
     gap={4}
-    width="80vw"
-    height="80vh"
+    width="90vw"
+    height="150vh"
   >
     {[
    { src: "/src/assets/BombayChaat.jpg", title: "Bombay Chaat Bowl", desc: "Roasted sweet potatoes, spiced chickpeas, and tamarind chutney come together in a healthy twist on your favorite chaat—tangy, savory, and vibrant." },
@@ -177,13 +177,21 @@ const Landing: React.FC = () => {
      overflow="hidden"
      height="100%"
    >
+    {/* Gray Overlay */}
+    <Box
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          bg="rgba(0, 0, 0, 0.2)" // semi-transparent black overlay
+        />
      {/* Overlay Content */}
      <Box
        position="absolute"
        left={0}
        bottom={0} // Align content to the bottom
        p={4}
-       bg="rgba(0, 0, 0, 0.5)"
        color="white"
        borderTopLeftRadius="md"
        borderBottomRightRadius="md"
