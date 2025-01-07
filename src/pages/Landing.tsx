@@ -180,9 +180,6 @@ const Landing: React.FC = () => {
                         </Box>
                     </Stack>
                 </Flex>
-
-                
-                
                 </Flex>
 
             
