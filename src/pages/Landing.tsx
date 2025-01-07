@@ -127,7 +127,7 @@ const Landing: React.FC = () => {
                 
             </Flex>
             {/* Content Sections Below Hero */}
-            <Flex direction="column" pt="70vh"> {/* Add padding top to move sections down */}
+            <Flex direction="column" pt="0vh"> {/* Add padding top to move sections down */}
                 {/* About Section */}
                 <Flex direction="column" py={16} align="center" textAlign="center" bg="gray.100">
     <Heading size="lg" mb={4} fontFamily="'Playfair Display', serif" fontWeight="700" color="gray.800">
