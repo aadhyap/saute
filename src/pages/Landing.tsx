@@ -1,11 +1,10 @@
-import { Flex, Box, Stack, Heading, Text, Button, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, GridItem, Grid, IconButton } from "@chakra-ui/react";
+import { Flex, Box, Stack, Heading, Text, Button, Input, GridItem, Grid, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons"; // Importing a better arrow icon
 import Logo from "@/components/Logo";
 import { FaEnvelope, FaInstagram } from "react-icons/fa";
 
 const Landing: React.FC = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure(); // Disclosure hook for modal
 
   
 
@@ -20,7 +19,6 @@ const Landing: React.FC = () => {
         setIsSubmitted(true);
         if (validateEmail(email)) {
             console.log("Email submitted:", email);
-            onOpen();
         } else {
             setIsEmailValid(false); // Set email validity to false if invalid
         }
@@ -33,15 +31,10 @@ const Landing: React.FC = () => {
     };
     
 
-    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [isEmailValid, setIsEmailValid] = useState(true); // Track email validity
     const [isSubmitted, setIsSubmitted] = useState(false); 
 
-    const handleFormSubmit = () => {
-        console.log("User Info:", { name, email });
-        onClose(); // Close modal after submission
-    };
 
     return (
         <Flex direction="column" px={{ base: "4", md: "8" }} height="100vh" width={"100vw"} backgroundColor={"black"}>
@@ -311,40 +304,6 @@ const Landing: React.FC = () => {
                     © {new Date().getFullYear()} Saute. All rights reserved.
                 </Text>
             </Flex>
-
-            {/* Modal Popup */}
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Almost There! Just a Few More Details</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <Stack spacing="4">
-                            <Input
-                                placeholder="Your Name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                borderRadius="full"
-                                size="lg"
-                            />
-                            <Input
-                                placeholder="Your Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                borderRadius="full"
-                                size="lg"
-                                type="email"
-                            />
-                        </Stack>
-                    </ModalBody>   
-                    
-                    <ModalFooter>
-                        <Button colorScheme="blue" onClick={handleFormSubmit}>
-                            Submit
-                        </Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
             
             
             
