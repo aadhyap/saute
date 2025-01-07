@@ -1,4 +1,4 @@
-import { Flex, Box, Stack, Heading, Text, Button, Input, useDisclosure } from "@chakra-ui/react";
+import { Flex, Box, Stack, Heading, Text, Button, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons"; // Importing a better arrow icon
 import Logo from "@/components/Logo";
@@ -7,7 +7,7 @@ const Landing: React.FC = () => {
     const [cravingFood, setCravingFood] = useState("");
     const [foodSuggestions] = useState(["Pad Thai", "Biryani", "Pizza", "Sushi", "Tacos", "Pasta", "Burger", "Ramen"]);
     const [currentFoodIndex, setCurrentFoodIndex] = useState(0);
-    const { isOpen, onToggle } = useDisclosure();
+    const { isOpen, onOpen, onClose } = useDisclosure(); // Disclosure hook for modal
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -23,7 +23,18 @@ const Landing: React.FC = () => {
 
     const handleFoodSubmit = () => {
         console.log("Craving submitted:", cravingFood);
-        // Add any further logic here, e.g., proceed to next step
+        // Open modal to ask for name, email, and message
+        onOpen();
+    };
+
+    // State to handle user input for modal
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
+
+    const handleFormSubmit = () => {
+        console.log("User Info:", { name, email, message });
+        onClose(); // Close modal after submission
     };
 
     return (
@@ -70,45 +81,41 @@ const Landing: React.FC = () => {
                         What home-cooked meal are you craving right now?
                     </Text>
 
-                   {/* Input Field with Arrow Button */}
-<Box width="100%" maxW="200px">
-    <Flex position="relative" align="center">
-        <Input
-            placeholder="Type your craving..."
-            value={cravingFood}
-            onChange={handleCravingChange}
-            borderRadius="full"
-            backgroundColor="white"
-            _focus={{ borderColor: "#cd4630" }}
-            _hover={{ borderColor: "#cd4630" }}
-            size="lg"
-            maxW="400px"
-            mt={4}
-            onFocus={onToggle} // Show arrow when user clicks on input
-        />
-        {/* Arrow Icon */}
-        {cravingFood && (
-            <Button
-                size="lg"
-                color={"white"}
-                backgroundColor="#cd4630"
-                _hover={{ backgroundColor: "#a73d29" }}
-                _active={{ backgroundColor: "#8e2e24" }}
-                position="absolute"
-                right="0"
-                top="27%" // Vertically center the button
-                borderRadius="full"
-                zIndex={1}
-                onClick={handleFoodSubmit}
-                aria-label="Submit craving"
-            >
-                <ArrowForwardIcon />
-            </Button>
-        )}
-    </Flex>
-</Box>
-
-
+                    {/* Input Field with Arrow Button */}
+                    <Box width="100%" maxW="200px">
+                        <Flex position="relative" align="center">
+                            <Input
+                                placeholder="Type your craving..."
+                                value={cravingFood}
+                                onChange={handleCravingChange}
+                                borderRadius="full"
+                                backgroundColor="white"
+                                _focus={{ borderColor: "#cd4630" }}
+                                _hover={{ borderColor: "#cd4630" }}
+                                size="lg"
+                                mt={4}
+                            />
+                            {/* Arrow Icon */}
+                            {cravingFood && (
+                                <Button
+                                    size="lg"
+                                    color={"white"}
+                                    backgroundColor="#cd4630"
+                                    _hover={{ backgroundColor: "#a73d29" }}
+                                    _active={{ backgroundColor: "#8e2e24" }}
+                                    position="absolute"
+                                    right="0"
+                                    top="27%" // Vertically center the button
+                                    borderRadius="full"
+                                    zIndex={1}
+                                    onClick={handleFoodSubmit} // On arrow click, show modal
+                                    aria-label="Submit craving"
+                                >
+                                    <ArrowForwardIcon />
+                                </Button>
+                            )}
+                        </Flex>
+                    </Box>
 
                     {/* Food Suggestions */}
                     <Box textAlign="center" color="white" fontSize="lg" fontWeight="bold">
@@ -125,6 +132,54 @@ const Landing: React.FC = () => {
                     © {new Date().getFullYear()} Saute. All rights reserved.
                 </Text>
             </Flex>
+
+            {/* Modal Popup */}
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Almost There! Just a Few More Details</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Stack spacing="4">
+                            <Input
+                                placeholder="Your Name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                borderRadius="full"
+                                size="lg"
+                            />
+                            <Input
+                                placeholder="Your Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                borderRadius="full"
+                                size="lg"
+                                type="email"
+                            />
+                            <Input
+                                placeholder="City/Town"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                borderRadius="full"
+                                size="lg"
+                            />
+                            <Input
+                                placeholder="Anything you'd liked us to know?"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                borderRadius="md"
+                                size="lg"
+                                as="textarea"
+                            />
+                        </Stack>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme="blue" onClick={handleFormSubmit}>
+                            Submit
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </Flex>
     );
 };
