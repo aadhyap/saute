@@ -64,7 +64,7 @@ const Landing: React.FC = () => {
 
             {/* Hero Section */}
             <Flex flex="1" align="center" direction="column" justifyContent="center" alignItems="center" minHeight="100vh" zIndex={3}>
-                <Stack spacing="5" px={{ sm: 8, md: 0 }} width="100%" align="center">
+                <Stack spacing="2" px={{ sm: 8, md: 0 }} width="100%" align="center">
                     <Heading size={"lg"} color={"white"} width={"80%"} textAlign="center">
                         Feed your soul with food you love
                     </Heading>
