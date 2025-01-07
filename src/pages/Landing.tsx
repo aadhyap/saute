@@ -188,10 +188,10 @@ const Landing: React.FC = () => {
                     height="150vh"
                 >
                     {[
-                        { src: "/src/assets/BombayChaat.jpg", title: "Bombay Chaat Bowl", desc: "Roasted sweet potatoes, spiced chickpeas, and tamarind chutney come together in a healthy twist on your favorite chaat—tangy, savory, and vibrant." },
-                        { src: "/src/assets/DesiProteinBowl.jpg", title: "Desi Protein Bowl", desc: "A protein-packed blend of spiced chickpeas, fresh cucumber-tomato salad, and a zesty coriander chutney for a light, satisfying meal." },
-                        { src: "/src/assets/eggpuffbowl.jpg", title: "Eggstasy Bowl", desc: "Soft-boiled eggs, roasted cauliflower, and sautéed onions on farro, topped with tangy tamarind chutney—comforting and packed with flavor." },
-                        { src: "/src/assets/IndoChineseBowl.jpg", title: "Indo Chinese Bowl", desc: "Grilled chicken or paneer, spicy chili-garlic sauce, and vibrant stir-fried veggies make this bowl an irresistible fusion of bold flavors and smoky goodness." },
+                        { src: "/img/BombayChaat.jpg", title: "Bombay Chaat Bowl", desc: "Roasted sweet potatoes, spiced chickpeas, and tamarind chutney come together in a healthy twist on your favorite chaat—tangy, savory, and vibrant." },
+                        { src: "/img/DesiProteinBowl.jpg", title: "Desi Protein Bowl", desc: "A protein-packed blend of spiced chickpeas, fresh cucumber-tomato salad, and a zesty coriander chutney for a light, satisfying meal." },
+                        { src: "/img/eggpuffbowl.jpg", title: "Eggstasy Bowl", desc: "Soft-boiled eggs, roasted cauliflower, and sautéed onions on farro, topped with tangy tamarind chutney—comforting and packed with flavor." },
+                        { src: "/img/IndoChineseBowl.jpg", title: "Indo Chinese Bowl", desc: "Grilled chicken or paneer, spicy chili-garlic sauce, and vibrant stir-fried veggies make this bowl an irresistible fusion of bold flavors and smoky goodness." },
                     ].map((item, index) => (
                         <GridItem
                             key={index}
