@@ -179,12 +179,12 @@ const Landing: React.FC = () => {
 
 
             {/* 2x2 Food Grid Section with Overlays */}
-            <Flex position={"relative"} direction="column" pb={14} align="center" textAlign="center" color={"white"}>
+            <Flex position={"relative"} direction="column" pb={14} px={8} align="center" textAlign="center" color={"white"}>
                 <Grid
-                    templateColumns="repeat(2, 1fr)"
-                    templateRows="repeat(2, 1fr)"
-                    gap={4}
-                    width="90vw"
+                    templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} // Single column on small screens, 2 columns on medium+
+                    templateRows="auto"
+                    gap={6}
+                    width={{ base: "100%", md: "90vw", lg: "80vw", xl: "65vw" }}
                     height="150vh"
                 >
                     {[
@@ -210,14 +210,14 @@ const Landing: React.FC = () => {
                                 left={0}
                                 right={0}
                                 bottom={0}
-                                bg="rgba(0, 0, 0, 0.2)" // semi-transparent black overlay
+                                bgGradient="linear(to-t, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7), transparent, transparent)" // Gradient background
                             />
                             {/* Overlay Content */}
                             <Box
                                 position="absolute"
                                 left={0}
                                 bottom={0} // Align content to the bottom
-                                p={4}
+                                p={6}
                                 color="white"
                                 borderTopLeftRadius="md"
                                 borderBottomRightRadius="md"
@@ -233,11 +233,13 @@ const Landing: React.FC = () => {
                                     size="lg" // Makes the button larger
                                     colorScheme="blackAlpha"
                                     backgroundColor="black"
+                                    border={"1px solid"}
+                                    borderColor={"whiteAlpha.300"}
                                     color="white"
                                     borderRadius="0" // Sharp edges
                                     paddingX={6} // Adjusts horizontal padding for a wider button
                                     paddingY={4} // Adjusts vertical padding for a taller button
-                                    _hover={{ backgroundColor: "gray.800" }} // Changes the color when hovered over
+                                    _hover={{ backgroundColor: "primary" }} // Changes the color when hovered over
                                 >
                                     Subscribe Now
                                 </Button>
