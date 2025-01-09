@@ -26,38 +26,27 @@ import FAQ from "@/components/FAQ";
 
 export const features = [
     {
-        name: '210+ Components',
-        description: 'Chakra UI Pro has 210+ componentsto help you develop your project faster.',
+        name: 'Choose Your Subscription',
+        description: 'Select a weekly or monthly plan that fits your lifestyle.',
         icon: BsStars,
     },
     {
-        name: 'Production Ready',
+        name: 'Customize Your Menu',
         description:
-            'Effortlessly create your next production-ready experience with Chakra UI Pro components.',
+            'Pick your favorite culturally inspired bowls from our rotating menu.',
         icon: IoRocketSharp,
     },
     {
-        name: 'Light & Dark',
-        description: 'All components support a light and a dark color mode out of the box.',
+        name: 'Relax and Enjoy',
+        description: 'Your meals arrive fresh and ready to heat—no prep, no stress.',
         icon: BsFillMoonFill,
     },
     {
-        name: 'Themeable',
+        name: 'Easily Manage Your Plan',
         description:
-            "Your style. Your blue. Customize the components as you need them. It's that simple.",
+            "Pause, skip, or adjust your subscription anytime with our flexible scheduling.",
         icon: FaPaintBrush,
-    },
-    {
-        name: 'Fully Responsive',
-        description: 'Responsive components that look great on mobile, tablet and desktop.',
-        icon: FaExpandAlt,
-    },
-    {
-        name: 'Accessible',
-        description:
-            "Accessibility first. That's why we pay attention to accessibility right from the start.",
-        icon: FaAccessibleIcon,
-    },
+    }
 ]
 
 
@@ -116,10 +105,10 @@ const Landing: React.FC = () => {
                 >
                     <Container display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} maxWidth={"container.lg"}>
                         <Heading maxWidth={"800px"} lineHeight={"1.2"} fontSize={"3em"} fontWeight={600} textTransform={"uppercase"} textAlign={"center"} letterSpacing={1.5} mb={6} color={"white"} >
-                            Feed your soul with food you love
+                            Healthy, Authentic Meals Delivered for Your Busy Life
                         </Heading>
                         <Text fontSize={"1.4em"} mb={10} textStyle="md" color={"white"} textAlign="center" >
-                            What home-cooked meal are you craving right now?
+                            More nutritious than fast food. More convenient than cooking. Experience the flavors of home, delivered fresh to your door.
                         </Text>
 
                         <EmailSubscribeForm />
@@ -162,17 +151,32 @@ const Landing: React.FC = () => {
             <Flex position={"relative"} direction="column" py={24} align="center" textAlign="center" color={"white"}>
                 <Container maxWidth={"container.lg"} px={10}>
                     <Heading lineHeight={"1.3"} fontSize={"1.85em"} fontWeight={600} textTransform={"uppercase"} textAlign={"center"} letterSpacing={1.5} mb={6}>
-                        Savor. Discover.  <chakra.span color="primary">Delight.</chakra.span>
+                        Why Choose  <chakra.span color="primary">Sauté?</chakra.span>
                     </Heading>
-                    <Text fontSize="md" fontWeight="bold" mb={4}>
-                        At Sauté, we’re not just about food; we’re about experience. Our mission is to bring the adventure of a private chef directly to your door
-                    </Text>
-                    <Text fontSize="md" mb={4}>
-                        Every week, you’ll indulge in curated meals from passionate chefs, tailored to your tastes and cravings. For just $50 a month, you’ll get access to a personal culinary artist who serves you exclusive dishes from cuisines like Asian fusion, vegan comfort food, and more.
-                    </Text>
-                    <Text fontSize="md" >
-                        Get ready to discover bold flavors and unexpected twists—because Sauté is where food is more than just a meal; it’s an experience. No more settling for fast food or takeout—it's time to savor meals crafted with care, fresh ingredients, and the artistry of passionate chefs.
-                    </Text>
+
+                    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
+                        <Stack>
+                            <Heading size={"xs"}>Cultural Authenticity</Heading>
+                            <Text fontSize="md" fontWeight="bold" mb={4}>
+                                Reconnect with dishes inspired by diverse traditions, crafted to bring the comfort of home to your table."
+                            </Text>
+                        </Stack>
+                        <Stack>
+                            <Heading size={"xs"}>Convenience</Heading>
+                            <Text fontSize="md" mb={4}>
+                                Skip the prep and cooking—just heat, eat, and enjoy meals made for your busy life.
+                            </Text>
+                        </Stack>
+
+                        <Stack>
+                            <Heading size={"xs"}>A Nutritious Alternative </Heading>
+
+                            <Text fontSize="md" >
+                                Healthier meals that nourish your body, without sacrificing convenience or cultural authenticity.                        </Text>
+                        </Stack>
+                    </SimpleGrid>
+
+
                 </Container>
             </Flex>
 
@@ -180,6 +184,13 @@ const Landing: React.FC = () => {
 
             {/* 2x2 Food Grid Section with Overlays */}
             <Flex position={"relative"} direction="column" pb={14} px={8} align="center" textAlign="center" color={"white"}>
+
+
+                <Heading lineHeight={"1.3"} fontSize={"1.85em"} fontWeight={600} textTransform={"uppercase"} textAlign={"center"} letterSpacing={1.5} mb={6}>
+                    Savor. Discover.  <chakra.span color="primary">Delight.</chakra.span>
+                </Heading>
+
+
                 <Grid
                     templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} // Single column on small screens, 2 columns on medium+
                     templateRows="auto"
@@ -259,11 +270,21 @@ const Landing: React.FC = () => {
                         <Box flex={{ base: 1, md: 0.5 }} order={2}>
                             <Heading lineHeight={"1.3"} fontSize={"1.85em"} fontWeight={600} textTransform={"uppercase"} letterSpacing={1.5} mb={6}>Join the Sauté <chakra.span color="primary">Journey</chakra.span></Heading>
                             <Text fontSize="md" mb={4}>
-                                Sign up, choose your cuisine, and let us know your dietary needs.
+                                At Sauté, we understand the struggle of balancing a busy life with the desire for nutritious, authentic meals. The dominance of unhealthy fast food and the hectic pace of modern life make it difficult to access meals that truly nourish the body and soul. We’re here to change that.
                             </Text>
-                            <Text fontSize="md" mb={4}>
-                                We will match you with the perfect chef and meal options for your lifestyle.
-                            </Text>
+
+                            <Button
+                                py={6}
+                                px={8}
+                                size="sm"
+                                fontWeight={600}
+                                colorScheme="blue"
+                                backgroundColor={"primary"}
+                                rounded="full"
+
+                            >
+                                Join the Irvine Waitlist
+                            </Button>
                         </Box>
                         <Box flex={{ base: 1, md: 0.5 }} order={1}>
                             <Image src="/img/main-dish.png" alt="Main Dish" width="100%" height="auto" />
@@ -281,16 +302,13 @@ const Landing: React.FC = () => {
 
                             <Stack spacing={{ base: '12', md: '16' }}>
                                 <Stack spacing={{ base: '4', md: '5' }} maxW="3xl">
-                                    <Stack spacing="3">
+                                    <Stack spacing="3" mb={-10} >
                                         <Text fontSize={{ base: 'sm', md: 'md' }} fontWeight="semibold" color="primary">
                                             Features
                                         </Text>
-                                        <Heading lineHeight={"1.3"} fontSize={"1.85em"} fontWeight={600} textTransform={"uppercase"} letterSpacing={1.5} mt={-2} mb={6}>How it & <chakra.span color="primary">Works</chakra.span></Heading>
+                                        <Heading lineHeight={"1.3"} fontSize={"1.85em"} fontWeight={600} textTransform={"uppercase"} letterSpacing={1.5} mt={-2} mb={6}>How Sauté <chakra.span color="primary">Works</chakra.span></Heading>
                                     </Stack>
-                                    <Text mt={-8} color="white" fontSize={{ base: 'md', md: 'lg' }}>
-                                        A bundle of 210+ ready-to-use, responsive and accessible components with clever
-                                        structured sourcode files.
-                                    </Text>
+
                                 </Stack>
                                 <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} columnGap={8} rowGap={{ base: 10, md: 16 }}>
                                     {features.map((feature) => (
@@ -325,7 +343,7 @@ const Landing: React.FC = () => {
 
 
             {/* Section 3: Text Left, Image Right */}
-            <Box backgroundColor={"#000"} width="100%" py={16} display="flex" alignItems="center" justifyContent="center">
+            <Box backgroundColor={"#000"} display={"none"} width="100%" py={16} alignItems="center" justifyContent="center">
                 <Container maxWidth={"container.lg"}>
 
                     <Flex flexDirection={{ base: "column", md: "row" }} gap={16} width="100%" alignItems="center" justifyContent="space-between" px={{ base: 4, md: 8 }} color={"white"}>
@@ -356,9 +374,26 @@ const Landing: React.FC = () => {
 
             {/* Testimonial Section */}
             <Flex direction="column" py={24} align="center">
-                <Container maxW={"container.lg"} color={"white"}>
+                <Container display={"flex"} flexDirection={"column"} justifyContent={"center"} maxW={"container.lg"} color={"white"}>
                     <Heading lineHeight={"1.3"} fontSize={"1.85em"} fontWeight={600} textTransform={"uppercase"} textAlign={"center"} letterSpacing={1.5} mb={6}>What Our Customers Are <chakra.span color="primary">Saying</chakra.span></Heading>
                     <SlickTestimonialSlideshow />
+
+                    <Button
+                        py={6}
+                        px={8}
+                        size="sm"
+                        fontWeight={600}
+                        colorScheme="blue"
+                        backgroundColor={"primary"}
+                        rounded="full"
+                        width={"max-content"}
+                        mt={8}
+                        mx={"auto"}
+
+
+                    >
+                        Join the Irvine Waitlist
+                    </Button>
                 </Container>
             </Flex>
 

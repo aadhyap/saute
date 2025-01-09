@@ -104,7 +104,7 @@ const EmailSubscribeForm = () => {
                     //isDisabled={hasSubmitted} // Optionally disable the button after submission
                     onClick={submitEmail}
                 >
-                    Join Waitlist
+                    Join the Irvine Waitlist
                 </Button>
             </InputRightElement>
         </InputGroup>

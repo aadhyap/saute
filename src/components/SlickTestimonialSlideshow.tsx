@@ -8,28 +8,22 @@ import { Rating } from "./Rating";
 const testimonials = [
     {
         content:
-            "This was my first time trying these cookies and OMG. Honestly I have always been a fan of the pink box, but I am pretty sure I’m making the switch to the black box. Do not hesitate to try these!",
-        name: "Misty A.",
-        source: "Google Review",
+            "Sauté is exactly what I needed. I can finally enjoy meals that remind me of my grandmother's cooking without spending hours in the kitchen. It’s a game-changer for my busy schedule.",
+        name: "Priya",
+        source: "Review",
     },
     {
         content:
-            "Utah is seemingly saturated with cookie and soda places but this one stands out from the crowd. I’ve never seen more creative flavors and have ALL been good ones that I’ve tried. I’m impressed every time so this place is a must try!! The chocolate cream pie is a 10/10.",
-        name: "Jacob N.",
-        source: "Google Review",
+            "I was tired of fast food but didn’t have the time to cook every day. Sauté delivers fresh, delicious meals that feel like a warm hug from home. Highly recommend!",
+        name: "Neil",
+        source: "Review",
     },
     {
         content:
-            "So good. Reminded me of the cookies from Levain Bakery in NYC. Definitely better than the competition around here. Hope to see more pop up outside of Utah. Really enjoyed the soda too!",
-        name: "Heath B.",
-        source: "Google Review",
-    },
-    {
-        content:
-            "Amazing cookies with a rich flavor. Definitely my new favorite spot for dessert in Utah!",
-        name: "Laura C.",
-        source: "Google Review",
-    },
+            "With Sauté, I never have to sacrifice nutrition or flavor. It’s perfect for someone like me who wants healthy, convenient meals that still feel special.",
+        name: "Anika",
+        source: "Review",
+    }
 ];
 
 const SlickTestimonialSlideshow: React.FC = () => {

@@ -11,35 +11,31 @@ import {
 
 const faqs = [
     {
-        question: "What is Sauté?",
+        question: "What makes Sauté different?",
         answer:
-            "Sauté is a premium food delivery service that brings freshly prepared, restaurant-quality meals straight to your doorstep. We focus on healthy, delicious, and sustainable options.",
+            "We provide nutritious, culturally inspired meals that are more authentic and healthier than fast food, with the convenience you need for a busy life.",
     },
     {
-        question: "How does Sauté work?",
+        question: "How does the subscription work?",
         answer:
-            "Browse our menu online or through our app, select your favorite dishes, and choose your delivery time. Our chefs prepare your meals fresh, and they are delivered to your door, ready to enjoy!",
+            "Choose a plan, customize your meals, and let us handle the rest. You can pause, skip, or cancel anytime.",
     },
     {
-        question: "What areas does Sauté deliver to?",
+        question: "Are the meals fresh or frozen?",
         answer:
-            "We currently deliver to major metropolitan areas. Enter your zip code on our website to check if we deliver to your location.",
+            "Our meals are delivered fresh, ready to heat and enjoy.",
     },
     {
-        question: "Are your meals customizable?",
+        question: "How do I manage my subscription?",
         answer:
-            "Yes! We offer customizable options for many dishes, including vegetarian, vegan, gluten-free, and low-carb preferences.",
+            "Log in to your account to adjust your plan anytime.",
     },
     {
-        question: "Is there a delivery fee?",
+        question: "Is Saute available outside of Irvine?",
         answer:
-            "Delivery fees vary depending on your location and order size. Orders over $50 qualify for free delivery in most areas.",
+            "Currently, Saute is serving Irvine, CA only—but not for long! We plan to expand to other areas soon.",
     },
-    {
-        question: "How do I contact customer support?",
-        answer:
-            "You can reach our customer support team via email at support@saute.com or call us at (555) 123-4567. We’re happy to assist you!",
-    },
+
 ];
 
 const FAQ: React.FC = () => {
