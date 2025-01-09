@@ -140,6 +140,22 @@ const Landing: React.FC = () => {
                                 size="lg"
                             />
                         </Flex>
+                        {/* Event Button */}
+                        <Button
+                            as="a"
+                            href="/events" // Link to event details
+                            mt={50}
+                            colorScheme="orange"
+                            size="md"
+                            borderRadius="full"
+                            px={6}
+                            textAlign="center"
+                            _hover={{
+                                backgroundColor: "orange",
+                            }}
+                        >
+                            Cypress Village 01/19 Event - Click Here
+                        </Button>
 
 
                     </Container>
@@ -252,7 +268,7 @@ const Landing: React.FC = () => {
                                     paddingY={4} // Adjusts vertical padding for a taller button
                                     _hover={{ backgroundColor: "primary" }} // Changes the color when hovered over
                                 >
-                                    Subscribe Now
+                                    Order Now
                                 </Button>
                             </Box>
                         </GridItem>
