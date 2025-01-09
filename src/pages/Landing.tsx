@@ -268,7 +268,7 @@ const Landing: React.FC = () => {
                                     paddingY={4} // Adjusts vertical padding for a taller button
                                     _hover={{ backgroundColor: "primary" }} // Changes the color when hovered over
                                 >
-                                    Order Now
+                                    Subscribe Now
                                 </Button>
                             </Box>
                         </GridItem>

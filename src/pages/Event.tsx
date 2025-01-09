@@ -49,7 +49,7 @@ import {
             Join Us at the <chakra.span color="primary">Sauté Bowls Launch</chakra.span>
         </Heading>
         <Text fontSize="1.2em" mb={6}>
-            Experience an evening of delicious flavors, fun activities, and community connections!
+            Experience an afternoon of delicious flavors, fun activities, and community connections!
         </Text>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
             <Box>
