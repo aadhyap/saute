@@ -14,6 +14,17 @@ import {
         GridItem,
         Button,
         IconButton,
+        Modal,
+        ModalOverlay,
+        ModalContent,
+        ModalHeader,
+        ModalCloseButton,
+        ModalBody,
+        FormControl,
+        FormLabel,
+        Input,
+        ModalFooter,
+        useDisclosure,
     } from "@chakra-ui/react";
     import Logo from "@/components/Logo";
     import Footer from "@/components/Footer";
@@ -23,11 +34,21 @@ import {
     import {  FaEnvelope, FaInstagram, FaPaintBrush } from 'react-icons/fa'
     
     import FAQ from "@/components/FAQ";
+import { useState } from "react";
   
     
     
     
     const Landing: React.FC = () => {
+        const { isOpen, onOpen, onClose } = useDisclosure();
+    const [name, setName] = useState("");
+    const [order, setOrder] = useState("");
+
+    const handleOrderSubmit = () => {
+        // Handle the submission logic here (e.g., save to backend or display a confirmation message)
+        console.log("Order Details:", { name, order });
+        onClose(); // Close the modal after submission
+    };
     
         return (
             <Flex
@@ -71,18 +92,6 @@ import {
             <Box>
                 <Heading size="md" mb={2}>👥 RSVP</Heading>
                 <Text fontSize="lg">Order your Saute bowls before Friday 01/17</Text>
-                <Button
-                    mt={4}
-                    py={6}
-                    px={8}
-                    size="lg"
-                    fontWeight={600}
-                    colorScheme="blue"
-                    backgroundColor="primary"
-                    rounded="full"
-                >
-                    RSVP Now
-                </Button>
             </Box>
         </SimpleGrid>
     </Container>
@@ -159,9 +168,47 @@ import {
                                         paddingX={6} // Adjusts horizontal padding for a wider button
                                         paddingY={4} // Adjusts vertical padding for a taller button
                                         _hover={{ backgroundColor: "primary" }} // Changes the color when hovered over
+                                        onClick={onOpen}
                                     >
                                         Order Now
                                     </Button>
+                                    {/* Order Modal */}
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Place Your Order</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Text mb={4}>
+                            Venmo @mySaute with $15 for your selected bowl(s).
+                        </Text>
+                        <FormControl mb={4}>
+                            <FormLabel>Your Name</FormLabel>
+                            <Input
+                                placeholder="Enter your name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </FormControl>
+                        <FormControl mb={4}>
+                            <FormLabel>Your Order</FormLabel>
+                            <Input
+                                placeholder="Enter your order details"
+                                value={order}
+                                onChange={(e) => setOrder(e.target.value)}
+                            />
+                        </FormControl>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme="blue" mr={3} onClick={handleOrderSubmit}>
+                            Submit Order
+                        </Button>
+                        <Button variant="ghost" onClick={onClose}>
+                            Cancel
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
                                 </Box>
                             </GridItem>
                         ))}
