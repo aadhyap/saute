@@ -180,7 +180,7 @@ import { useState } from "react";
                     <ModalCloseButton />
                     <ModalBody>
                         <Text mb={4}>
-                            Venmo @mySaute with $15 for your selected bowl(s).
+                            Venmo @mySaute with $15 for your selected bowl(s). Make sure you state the bowl name in the order!
                         </Text>
                         <FormControl mb={4}>
                             <FormLabel>Your Name</FormLabel>
