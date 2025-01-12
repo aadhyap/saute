@@ -85,9 +85,8 @@ import { useState } from "react";
             </Box>
             <Box>
                 <Heading size="md" mb={2}>🎉 Activities</Heading>
-                <Text fontSize="lg">- Authentic Ethnic Food !!  </Text>
-                <Text fontSize="lg">- Live music and entertainment</Text>
-                <Text fontSize="lg">- Meet the chefs</Text>
+                <Text fontSize="lg">- Fresh Healthy Food for the Soul!  </Text>
+                <Text fontSize="lg">- Live singer, comedy, and entertainment</Text>
             </Box>
             <Box>
                 <Heading size="md" mb={2}>👥 RSVP</Heading>
@@ -118,8 +117,8 @@ import { useState } from "react";
                         height="150vh"
                     >
                         {[
-                            { src: "/img/DesiProteinBowl.jpg", title: "Desi Protein Bowl", desc: "A protein-packed blend of spiced chickpeas, fresh cucumber-tomato salad, and a zesty coriander chutney for a light, satisfying meal." },
-                            { src: "/img/IndoChineseBowl.jpg", title: "Indo Chinese Bowl", desc: "Tofu, spicy chili-garlic sauce, and vibrant stir-fried veggies make this bowl an irresistible fusion of bold flavors and smoky goodness." },
+                            { src: "/img/buddahbowl.png", title: "Buddha Bowl", desc: "This Buddha Bowl is a vibrant medley of plant-based goodness, combining roasted vegetables, spiced chickpeas, and a creamy tahini drizzle for a wholesome and satisfying meal", link: "https://buy.stripe.com/3csdTYckB1p62wE4gi"},
+                            { src: "/img/tofubowl.jpeg", title: "Sunshine Tofu Bowl", desc: "A vibrant bowl with brown rice, golden tofu, colorful veggies, sesame seeds, tahini drizzle, and fresh herbs for a balanced, flavorful meal.", link: "https://buy.stripe.com/dR68zE70hebS6MU003" },
                         ].map((item, index) => (
                             <GridItem
                                 key={index}
@@ -168,7 +167,8 @@ import { useState } from "react";
                                         paddingX={6} // Adjusts horizontal padding for a wider button
                                         paddingY={4} // Adjusts vertical padding for a taller button
                                         _hover={{ backgroundColor: "primary" }} // Changes the color when hovered over
-                                        onClick={onOpen}
+                                        onClick={() => window.open(item.link, "_blank")}
+
                                     >
                                         Order Now
                                     </Button>
