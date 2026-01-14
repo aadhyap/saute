@@ -20,7 +20,7 @@ import Footer from "@/components/Footer";
 import EmailSubscribeForm from "@/components/EmailSubscribeForm";
 import SlickTestimonialSlideshow from "@/components/SlickTestimonialSlideshow";
 import { BsFillMoonFill, BsStars } from 'react-icons/bs'
-import { FaAccessibleIcon, FaEnvelope, FaExpandAlt, FaInstagram, FaPaintBrush } from 'react-icons/fa'
+import {FaEnvelope, FaInstagram, FaPaintBrush } from 'react-icons/fa'
 import { IoRocketSharp } from 'react-icons/io5'
 import FAQ from "@/components/FAQ";
 
