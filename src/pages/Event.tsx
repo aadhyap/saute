@@ -22,21 +22,17 @@ import {
         ModalFooter,
         useDisclosure,
     } from "@chakra-ui/react";
-    import Logo from "@/components/Logo";
     import Footer from "@/components/Footer";
-    import EmailSubscribeForm from "@/components/EmailSubscribeForm";
     import SlickTestimonialSlideshow from "@/components/SlickTestimonialSlideshow";
-    import { BsFillMoonFill, BsStars } from 'react-icons/bs'
-    import {  FaEnvelope, FaInstagram, FaPaintBrush } from 'react-icons/fa'
     
     import FAQ from "@/components/FAQ";
-import { useState } from "react";
+    import { useState } from "react";
   
     
     
     
     const Landing: React.FC = () => {
-        const { isOpen, onOpen, onClose } = useDisclosure();
+        const { isOpen, onClose } = useDisclosure();
     const [name, setName] = useState("");
     const [order, setOrder] = useState("");
 
